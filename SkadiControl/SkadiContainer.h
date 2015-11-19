@@ -16,6 +16,11 @@
 @property (nonatomic, strong) UIButton * resizeCommand;
 
 
--(instancetype)initWithSuperview: (UIView *)superview;
+/**
+ * @brief The default constructor.
+ * @param superview A superview on which SkadiControll will be attached.
+ * @return SkadiControl view.
+ */
+- (instancetype)initWithDefaultFrame;
 
 @end

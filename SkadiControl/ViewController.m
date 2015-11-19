@@ -10,7 +10,7 @@
 #import "SkadiContainer.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong)SkadiContainer *contariner;
 @end
 
 @implementation ViewController
@@ -19,9 +19,15 @@
     
     [super viewDidLoad];
     
-    SkadiContainer *contariner = [[SkadiContainer alloc]initWithSuperview:self.view];
-    [self.view addSubview:contariner];
+    self.contariner = [[SkadiContainer alloc] initWithDefaultFrame];
+    
+    [self.view addSubview:self.contariner];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.contariner setFrame:CGRectMake(20, 100, 300, 200)];
+}
 
 @end
