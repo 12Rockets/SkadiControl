@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E3B1BFE19B900EB8550 /* main.m */; };
 		7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */; };
-		7A1F3E421BFE19B900EB8550 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E411BFE19B900EB8550 /* ViewController.m */; };
+		7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E411BFE19B900EB8550 /* DevViewController.m */; };
 		7A1F3E451BFE19B900EB8550 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E431BFE19B900EB8550 /* Main.storyboard */; };
 		7A1F3E471BFE19B900EB8550 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E461BFE19B900EB8550 /* Assets.xcassets */; };
 		7A1F3E4A1BFE19B900EB8550 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E481BFE19B900EB8550 /* LaunchScreen.storyboard */; };
 		7A1F3E551BFE19BA00EB8550 /* SkadiControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E541BFE19BA00EB8550 /* SkadiControlTests.m */; };
 		7A1F3E601BFE19BA00EB8550 /* SkadiControlUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */; };
 		7A1F3E711BFE1A4200EB8550 /* SkadiContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */; };
+		D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D2A241BFF567D0038695E /* ExampleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +41,8 @@
 		7A1F3E3B1BFE19B900EB8550 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A1F3E3D1BFE19B900EB8550 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7A1F3E401BFE19B900EB8550 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7A1F3E411BFE19B900EB8550 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7A1F3E401BFE19B900EB8550 /* DevViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevViewController.h; sourceTree = "<group>"; };
+		7A1F3E411BFE19B900EB8550 /* DevViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevViewController.m; sourceTree = "<group>"; };
 		7A1F3E441BFE19B900EB8550 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A1F3E461BFE19B900EB8550 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A1F3E491BFE19B900EB8550 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +55,8 @@
 		7A1F3E611BFE19BA00EB8550 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1F3E6F1BFE1A4200EB8550 /* SkadiContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiContainer.h; sourceTree = "<group>"; };
 		7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiContainer.m; sourceTree = "<group>"; };
+		D61D2A231BFF567D0038695E /* ExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleViewController.h; sourceTree = "<group>"; };
+		D61D2A241BFF567D0038695E /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +107,11 @@
 		7A1F3E391BFE19B900EB8550 /* SkadiControl */ = {
 			isa = PBXGroup;
 			children = (
+				D61D2A2A1BFF56CD0038695E /* Example App */,
 				7A1F3E3D1BFE19B900EB8550 /* AppDelegate.h */,
 				7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */,
-				7A1F3E401BFE19B900EB8550 /* ViewController.h */,
-				7A1F3E411BFE19B900EB8550 /* ViewController.m */,
+				7A1F3E401BFE19B900EB8550 /* DevViewController.h */,
+				7A1F3E411BFE19B900EB8550 /* DevViewController.m */,
 				7A1F3E6F1BFE1A4200EB8550 /* SkadiContainer.h */,
 				7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */,
 				7A1F3E431BFE19B900EB8550 /* Main.storyboard */,
@@ -143,6 +147,39 @@
 				7A1F3E611BFE19BA00EB8550 /* Info.plist */,
 			);
 			path = SkadiControlUITests;
+			sourceTree = "<group>";
+		};
+		D61D2A261BFF56A50038695E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D61D2A271BFF56AF0038695E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D61D2A231BFF567D0038695E /* ExampleViewController.h */,
+				D61D2A241BFF567D0038695E /* ExampleViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D61D2A281BFF56B90038695E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		D61D2A2A1BFF56CD0038695E /* Example App */ = {
+			isa = PBXGroup;
+			children = (
+				D61D2A281BFF56B90038695E /* Models */,
+				D61D2A271BFF56AF0038695E /* ViewControllers */,
+				D61D2A261BFF56A50038695E /* Views */,
+			);
+			name = "Example App";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,8 +312,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1F3E421BFE19B900EB8550 /* ViewController.m in Sources */,
+				7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */,
 				7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */,
+				D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */,
 				7A1F3E711BFE1A4200EB8550 /* SkadiContainer.m in Sources */,
 				7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */,
 			);
@@ -504,6 +542,7 @@
 				7A1F3E661BFE19BA00EB8550 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A1F3E671BFE19BA00EB8550 /* Build configuration list for PBXNativeTarget "SkadiControlTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +551,7 @@
 				7A1F3E691BFE19BA00EB8550 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A1F3E6A1BFE19BA00EB8550 /* Build configuration list for PBXNativeTarget "SkadiControlUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +560,7 @@
 				7A1F3E6C1BFE19BA00EB8550 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

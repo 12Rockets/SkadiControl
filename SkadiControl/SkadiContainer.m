@@ -19,6 +19,11 @@
 @property (strong,nonatomic) UIView *contentView;
 @property (strong,nonatomic) UIView *canvasView;
 
+@property (nonatomic, strong) UIButton * confirmComamnd;
+@property (nonatomic, strong) UIButton * deleteCommand;
+@property (nonatomic, strong) UIButton * rotateCommand;
+@property (nonatomic, strong) UIButton * resizeCommand;
+
 @end
 
 @implementation SkadiContainer
@@ -65,21 +70,6 @@
     self.rotateCommand.frame = CGRectMake(-CONTROL_SIZE/2,  self.contentView.frame.size.height - CONTROL_SIZE/2, CONTROL_SIZE, CONTROL_SIZE);
     self.resizeCommand.frame = CGRectMake(self.contentView.frame.size.width - CONTROL_SIZE/2, self.contentView.frame.size.height - CONTROL_SIZE/2, CONTROL_SIZE, CONTROL_SIZE);
 }
-
-//- (void)updateMainFrame
-//{
-//    float heightSuperView = self.superview.frame.size.height;
-//    float widthSuperView = self.superview.frame.size.width;
-//    
-//    float width = widthSuperView/2;
-//    
-//    float xCenter = width/2;
-//    float yCenter = heightSuperView/2 - xCenter;
-//    
-//    CGRect newFrame = CGRectMake( xCenter, yCenter ,width , width);
-//    self.frame = newFrame;
-//}
-
 
 
 - (void)loadCommands

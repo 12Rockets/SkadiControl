@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DevViewController.h
 //  SkadiControl
 //
 //  Created by Aleksandra Stevović on 11/19/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface DevViewController : UIViewController
 
 
 @end

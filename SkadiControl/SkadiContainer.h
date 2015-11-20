@@ -10,10 +10,7 @@
 
 @interface SkadiContainer : UIView
 
-@property (nonatomic, strong) UIButton * confirmComamnd;
-@property (nonatomic, strong) UIButton * deleteCommand;
-@property (nonatomic, strong) UIButton * rotateCommand;
-@property (nonatomic, strong) UIButton * resizeCommand;
+
 
 
 /**
