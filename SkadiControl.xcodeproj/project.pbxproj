@@ -16,6 +16,7 @@
 		7A1F3E551BFE19BA00EB8550 /* SkadiControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E541BFE19BA00EB8550 /* SkadiControlTests.m */; };
 		7A1F3E601BFE19BA00EB8550 /* SkadiControlUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */; };
 		7A1F3E711BFE1A4200EB8550 /* SkadiContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */; };
+		7A6EE2C01C03519100147457 /* PagesContents.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6EE2BF1C03519100147457 /* PagesContents.m */; };
 		D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D2A241BFF567D0038695E /* ExampleViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,8 @@
 		7A1F3E611BFE19BA00EB8550 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1F3E6F1BFE1A4200EB8550 /* SkadiContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiContainer.h; sourceTree = "<group>"; };
 		7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiContainer.m; sourceTree = "<group>"; };
+		7A6EE2BE1C03519100147457 /* PagesContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagesContents.h; sourceTree = "<group>"; };
+		7A6EE2BF1C03519100147457 /* PagesContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagesContents.m; sourceTree = "<group>"; };
 		D61D2A231BFF567D0038695E /* ExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleViewController.h; sourceTree = "<group>"; };
 		D61D2A241BFF567D0038695E /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +164,8 @@
 			children = (
 				D61D2A231BFF567D0038695E /* ExampleViewController.h */,
 				D61D2A241BFF567D0038695E /* ExampleViewController.m */,
+				7A6EE2BE1C03519100147457 /* PagesContents.h */,
+				7A6EE2BF1C03519100147457 /* PagesContents.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 			files = (
 				7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */,
 				7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */,
+				7A6EE2C01C03519100147457 /* PagesContents.m in Sources */,
 				D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */,
 				7A1F3E711BFE1A4200EB8550 /* SkadiContainer.m in Sources */,
 				7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */,
