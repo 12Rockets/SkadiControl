@@ -56,6 +56,7 @@
 		7A1F3E5B1BFE19BA00EB8550 /* SkadiControlUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkadiControlUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkadiControlUITests.m; sourceTree = "<group>"; };
 		7A1F3E611BFE19BA00EB8550 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AD5C2101C048BB000F8E9F9 /* Notifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
 		D60B6F341C033AA6001B253C /* WControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WControlButton.h; sourceTree = "<group>"; };
 		D60B6F351C033AA6001B253C /* WControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WControlButton.m; sourceTree = "<group>"; };
 		D60B6F371C033CD7001B253C /* SkadiCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiCanvas.h; sourceTree = "<group>"; };
@@ -176,6 +177,7 @@
 				D61D2A241BFF567D0038695E /* ExampleViewController.m */,
 				D638B0451C046EA500FC1B9A /* PagesContents.h */,
 				D638B0461C046EA500FC1B9A /* PagesContents.m */,
+				7AD5C2101C048BB000F8E9F9 /* Notifications.h */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

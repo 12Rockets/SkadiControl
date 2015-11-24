@@ -8,6 +8,7 @@
 
 #import "ExampleViewController.h"
 #import "SkadiControl.h"
+#import "Notifications.h"
 
 @interface ExampleViewController() <SkadiControlDelegate>
 
@@ -40,17 +41,8 @@
     
     
     self.container = [[SkadiControl alloc] initWithFrame:CGRectZero superview:self.view controlsDelegate:self startPosition:CGPointMake(200, 200) imageNamed:@"12rockets"];
+    [self notifications];
 }
-
-- (void)skadiControlDidSelect:(id)sender
-{
-    NSLog(@"Sticker selected");
-}
-- (void)skadiControlWillRemove:(id)sender
-{
-    NSLog(@"Sticker removed");
-}
-
 -(void)viewWillLayoutSubviews
 {
     float xRange = self.containerView.frame.size.width;
@@ -63,6 +55,70 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CenterRange" object:dict];
 }
+
+-(void)notifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onScaleChanged:) name:NOTIFICATION_ON_SCALE_CHANGED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onRotationChanged:) name:NOTIFICATION_ON_ROTATION_CHANGED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onCenterXChanged:) name:NOTIFICATION_ON_X_CENTER_CHANGED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onCenterYChanged:) name:NOTIFICATION_ON_Y_CENTER_CHANGED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onImageChanged:) name:NOTIFICATION_ON_IMAGE_CHANGED
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onAssetsChanged:) name:NOTIFICATION_ON_ASSETS_CHANGED
+                                               object:nil];
+}
+-(void)onScaleChanged: (NSNotification *)notification
+{
+    float scale = [[notification object] floatValue];
+    //change scale
+
+}
+-(void)onRotationChanged: (NSNotification *)notification
+{
+    float rotation = [[notification object] floatValue];
+    //change rotation
+}
+-(void)onCenterXChanged: (NSNotification *)notification
+{
+    float centerX = [[notification object] floatValue];
+    //change centerX
+}
+-(void)onCenterYChanged: (NSNotification *)notification
+{
+    float centerY = [[notification object] floatValue];
+    //change centerY
+}
+-(void)onImageChanged: (NSNotification *)notification
+{
+    NSString *imageName = [notification object];
+    [self.container changeCanvasImage:imageName];
+}
+-(void)onAssetsChanged: (NSNotification *)notification
+{
+    NSString *assetsName = [notification object];
+    //change assets
+}
+
+- (void)skadiControlDidSelect:(id)sender
+{
+    NSLog(@"Sticker selected");
+}
+- (void)skadiControlWillRemove:(id)sender
+{
+    NSLog(@"Sticker removed");
+}
+
+
 - (NSMutableArray *)viewControllerArray
 {
     if (!_viewControllerArray)
