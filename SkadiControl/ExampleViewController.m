@@ -38,6 +38,7 @@
     [self.viewForControls addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
+    
     self.container = [[SkadiControl alloc] initWithFrame:CGRectZero superview:self.view controlsDelegate:self startPosition:CGPointMake(200, 200) imageNamed:@"12rockets"];
 }
 
