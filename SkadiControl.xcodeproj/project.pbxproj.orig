@@ -15,11 +15,15 @@
 		7A1F3E4A1BFE19B900EB8550 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E481BFE19B900EB8550 /* LaunchScreen.storyboard */; };
 		7A1F3E551BFE19BA00EB8550 /* SkadiControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E541BFE19BA00EB8550 /* SkadiControlTests.m */; };
 		7A1F3E601BFE19BA00EB8550 /* SkadiControlUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */; };
+<<<<<<< HEAD
+		D60B6F361C033AA6001B253C /* WControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F351C033AA6001B253C /* WControlButton.m */; };
+		D60B6F3B1C033CD7001B253C /* SkadiCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F381C033CD7001B253C /* SkadiCanvas.m */; };
+		D60B6F3C1C033CD7001B253C /* SkadiControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F3A1C033CD7001B253C /* SkadiControl.m */; };
+=======
+		7A1F3E711BFE1A4200EB8550 /* SkadiContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */; };
+		7A6EE2C01C03519100147457 /* PagesContents.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6EE2BF1C03519100147457 /* PagesContents.m */; };
+>>>>>>> 9d0eea38fdbbd3dc08002acad56f143e008429bb
 		D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D2A241BFF567D0038695E /* ExampleViewController.m */; };
-		D638B0421C046DD800FC1B9A /* SkadiCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F381C033CD7001B253C /* SkadiCanvas.m */; };
-		D638B0431C046DD800FC1B9A /* SkadiControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F3A1C033CD7001B253C /* SkadiControl.m */; };
-		D638B0441C046DD800FC1B9A /* WControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F351C033AA6001B253C /* WControlButton.m */; };
-		D638B0471C046EA500FC1B9A /* PagesContents.m in Sources */ = {isa = PBXBuildFile; fileRef = D638B0461C046EA500FC1B9A /* PagesContents.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,16 +60,21 @@
 		7A1F3E5B1BFE19BA00EB8550 /* SkadiControlUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkadiControlUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkadiControlUITests.m; sourceTree = "<group>"; };
 		7A1F3E611BFE19BA00EB8550 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		D60B6F341C033AA6001B253C /* WControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WControlButton.h; sourceTree = "<group>"; };
 		D60B6F351C033AA6001B253C /* WControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WControlButton.m; sourceTree = "<group>"; };
 		D60B6F371C033CD7001B253C /* SkadiCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiCanvas.h; sourceTree = "<group>"; };
 		D60B6F381C033CD7001B253C /* SkadiCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiCanvas.m; sourceTree = "<group>"; };
 		D60B6F391C033CD7001B253C /* SkadiControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiControl.h; sourceTree = "<group>"; };
 		D60B6F3A1C033CD7001B253C /* SkadiControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiControl.m; sourceTree = "<group>"; };
+=======
+		7A1F3E6F1BFE1A4200EB8550 /* SkadiContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiContainer.h; sourceTree = "<group>"; };
+		7A1F3E701BFE1A4200EB8550 /* SkadiContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiContainer.m; sourceTree = "<group>"; };
+		7A6EE2BE1C03519100147457 /* PagesContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagesContents.h; sourceTree = "<group>"; };
+		7A6EE2BF1C03519100147457 /* PagesContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagesContents.m; sourceTree = "<group>"; };
+>>>>>>> 9d0eea38fdbbd3dc08002acad56f143e008429bb
 		D61D2A231BFF567D0038695E /* ExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleViewController.h; sourceTree = "<group>"; };
 		D61D2A241BFF567D0038695E /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleViewController.m; sourceTree = "<group>"; };
-		D638B0451C046EA500FC1B9A /* PagesContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagesContents.h; sourceTree = "<group>"; };
-		D638B0461C046EA500FC1B9A /* PagesContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagesContents.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,8 +183,8 @@
 			children = (
 				D61D2A231BFF567D0038695E /* ExampleViewController.h */,
 				D61D2A241BFF567D0038695E /* ExampleViewController.m */,
-				D638B0451C046EA500FC1B9A /* PagesContents.h */,
-				D638B0461C046EA500FC1B9A /* PagesContents.m */,
+				7A6EE2BE1C03519100147457 /* PagesContents.h */,
+				7A6EE2BF1C03519100147457 /* PagesContents.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -327,13 +336,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D638B0471C046EA500FC1B9A /* PagesContents.m in Sources */,
-				D638B0421C046DD800FC1B9A /* SkadiCanvas.m in Sources */,
-				D638B0431C046DD800FC1B9A /* SkadiControl.m in Sources */,
-				D638B0441C046DD800FC1B9A /* WControlButton.m in Sources */,
 				7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */,
 				7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */,
+				7A6EE2C01C03519100147457 /* PagesContents.m in Sources */,
 				D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */,
+				D60B6F361C033AA6001B253C /* WControlButton.m in Sources */,
+				D60B6F3C1C033CD7001B253C /* SkadiControl.m in Sources */,
+				D60B6F3B1C033CD7001B253C /* SkadiCanvas.m in Sources */,
 				7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,7 +486,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SkadiControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = rs.pstech.SkadiControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -489,7 +497,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SkadiControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = rs.pstech.SkadiControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
