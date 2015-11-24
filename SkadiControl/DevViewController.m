@@ -7,10 +7,11 @@
 //
 
 #import "DevViewController.h"
-#import "SkadiContainer.h"
+#import "SkadiControl.h"
 
-@interface DevViewController ()
-@property (nonatomic, strong)SkadiContainer *contariner;
+@interface DevViewController () <SkadiControlDelegate>
+@property (nonatomic, strong)SkadiControl *sticker;
+
 @end
 
 @implementation DevViewController
@@ -19,15 +20,24 @@
     
     [super viewDidLoad];
     
-    self.contariner = [[SkadiContainer alloc] initWithDefaultFrame];
+    self.sticker = [[SkadiControl alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)
+                                                 superview:self.view
+                                          controlsDelegate:self
+                                             startPosition:CGPointMake(400.0, 400.0)
+                                                imageNamed:@"textbox_duplicate"];
     
-    [self.view addSubview:self.contariner];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.contariner setFrame:CGRectMake(20, 100, 300, 200)];
 }
-
+- (void)skadiControlDidSelect:(id)sender
+{
+    NSLog(@"Sticker selected");    
+}
+- (void)skadiControlWillRemove:(id)sender
+{
+    NSLog(@"Sticker removed");
+}
 @end
