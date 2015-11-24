@@ -10,11 +10,6 @@
 #import "SkadiControl.h"
 #import "Notifications.h"
 
-#define INITAL_SCALE 1.0f
-#define INITAL_ROTATION 0.0f
-#define INITAL_X_CENTER 0.0f
-#define INITAL_Y_CENTER 0.0f
-
 @interface PagesContents ()
 
 //Page1
@@ -42,18 +37,16 @@
     [super viewDidLoad];
     [self setup];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(centerRange:) name:NOTIFICATION_CENTER_RANGE
+                                             selector:@selector(centerRange:) name:NOTIFICATION_INITIAL_DATA
                                                object:nil];
 }
 -(void)setup
 {
-    [self.scaleSlider setMaximumValue:1.0f];
-    [self.scaleSlider setMaximumValue:100.0f];
-    [self.scaleSlider setValue:INITAL_SCALE];
+    [self.scaleSlider setMinimumValue:0.5f];
+    [self.scaleSlider setMaximumValue:1.5f];
     
     [self.rotationSlider setMinimumValue:-2*M_PI];
     [self.rotationSlider setMaximumValue:2*M_PI];
-    [self.rotationSlider setValue:INITAL_ROTATION];
 
 }
 - (IBAction)onScaleChanged:(id)sender {
@@ -98,12 +91,17 @@
     
     float xRange =[[dict objectForKey:@"xRange"] floatValue];
     float yRange =[[dict objectForKey:@"yRange"] floatValue];
+    float scale =[[dict objectForKey:@"scale"] floatValue];
+    float rotation =[[dict objectForKey:@"rotation"] floatValue];
     
     [self.centerXSlider setMinimumValue:0.0f];
     [self.centerXSlider setMaximumValue:xRange -1];
     
     [self.centerYSlider setMinimumValue:0.0f];
     [self.centerYSlider setMaximumValue:yRange -1];
+    
+    [self.scaleSlider setValue:scale];
+    [self.rotationSlider setValue:rotation];
     
 }
 

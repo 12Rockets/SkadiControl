@@ -31,7 +31,6 @@
 @property(nonatomic) CGPoint translation;
 @property(nonatomic) CGPoint scalingControlStartPoint;
 @property(nonatomic) CGPoint rotationControlStartPoint;
-@property(nonatomic) CGFloat rotationAngle;
 @property(nonatomic) BOOL initial;
 @property(nonatomic) CGPoint defaultCenterPoint;
 @property(nonatomic, strong) SkadiCanvas *canvas;
@@ -408,8 +407,8 @@
 
 -(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation
 {
-    self.scale = scale;
-    self.rotationAngle = rotation;
+    //self.scale = scale;
+    //self.rotationAngle = rotation;
     self.translation = CGPointZero;
     
     CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
@@ -422,7 +421,8 @@
     self.rotationControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
     self.deletionControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
 }
-
+@synthesize scale = _scale;
+@synthesize rotationAngle = _rotationAngle;
 -(CGFloat)scale
 {
     return _scale;
@@ -431,6 +431,17 @@
 -(CGFloat)rotation
 {
     return _rotationAngle;
+}
+
+-(void)setScale:(CGFloat)scale
+{
+    _scale = scale;
+    [self setTransformWithScale:scale andRotation:self.rotationAngle];
+}
+-(void)setRotationAngle:(CGFloat)rotationAngle
+{
+    _rotationAngle= rotationAngle;
+    [self setTransformWithScale:self.scale andRotation:rotationAngle];
 }
 
 @end

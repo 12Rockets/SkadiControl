@@ -17,6 +17,6 @@
 #define NOTIFICATION_ON_ASSETS_CHANGED @"onAssetsChanged"
 
 
-#define NOTIFICATION_CENTER_RANGE @"centerRagne"
+#define NOTIFICATION_INITIAL_DATA @"initialData"
 
 #endif /* Notifications_h */

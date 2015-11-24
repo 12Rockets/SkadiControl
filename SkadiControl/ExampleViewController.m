@@ -41,19 +41,26 @@
     
     
     self.container = [[SkadiControl alloc] initWithFrame:CGRectZero superview:self.view controlsDelegate:self startPosition:CGPointMake(200, 200) imageNamed:@"12rockets"];
-    [self notifications];
 }
 -(void)viewWillLayoutSubviews
 {
     float xRange = self.containerView.frame.size.width;
     float yRange = self.containerView.frame.size.height;
+    float initialScale = self.container.scale;
+    float initialRotation = self.container.rotationAngle;
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     [dict setObject:[NSNumber numberWithFloat:xRange] forKey:@"xRange"];
     [dict setObject:[NSNumber numberWithFloat:yRange] forKey:@"yRange"];
+    [dict setObject:[NSNumber numberWithFloat:initialScale] forKey:@"scale"];
+    [dict setObject:[NSNumber numberWithFloat:initialRotation] forKey:@"rotation"];
     
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CenterRange" object:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_INITIAL_DATA object:dict];
+
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self notifications];
 }
 
 -(void)notifications
@@ -80,13 +87,13 @@
 -(void)onScaleChanged: (NSNotification *)notification
 {
     float scale = [[notification object] floatValue];
-    //change scale
+    [self.container setScale:scale];
 
 }
 -(void)onRotationChanged: (NSNotification *)notification
 {
     float rotation = [[notification object] floatValue];
-    //change rotation
+    [self.container setRotationAngle:rotation];
 }
 -(void)onCenterXChanged: (NSNotification *)notification
 {
