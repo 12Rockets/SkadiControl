@@ -13,6 +13,6 @@
 @property(nonatomic) BOOL selected;
 
 - (id)initWithCanvasView:(UIView *)view;
-- (void)changeToView:(UIView *)view;
+- (void)setCanvasView:(UIView *)view;
 
 @end

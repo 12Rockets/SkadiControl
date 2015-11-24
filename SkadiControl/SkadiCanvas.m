@@ -67,7 +67,7 @@
     return NO;
 }
 
-- (void)changeToView:(UIView*)view
+- (void)setCanvasView:(UIView*)view
 {
     _canvas = view;
 }

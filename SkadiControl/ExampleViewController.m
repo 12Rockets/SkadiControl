@@ -101,7 +101,7 @@
 -(void)onImageChanged: (NSNotification *)notification
 {
     NSString *imageName = [notification object];
-    [self.container changeCanvasImage:imageName];
+    [self.container setCanvasImageNamed:imageName];
 }
 -(void)onAssetsChanged: (NSNotification *)notification
 {

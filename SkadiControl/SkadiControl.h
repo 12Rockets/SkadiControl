@@ -21,6 +21,9 @@
 
 @property (nonatomic,weak) id<SkadiControlDelegate> delegate;
 
+@property(nonatomic) CGFloat scale;
+
+
 -(id)initWithFrame:(CGRect)frame
          superview:(UIView *)superview
   controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
@@ -29,9 +32,10 @@
 
 - (void)controlSelected:(BOOL)selected;
 
-- (void)changeCanvasImage:(NSString*)imageName;
-- (CGFloat)scale;
-- (CGFloat)rotation;
+- (void)setCanvasImageNamed:(NSString *)imageName;
+- (void)setCanvasImage:(UIImage *)image;
+- (void)setCanvasView:(UIView *)view;
+
 - (void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation;
 
 @end

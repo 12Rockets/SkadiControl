@@ -29,7 +29,6 @@
 @property(nonatomic) CGFloat validYTranslation;
 @property(nonatomic) CGFloat validXTranslation;
 @property(nonatomic) CGPoint translation;
-@property(nonatomic) CGFloat scale;
 @property(nonatomic) CGPoint scalingControlStartPoint;
 @property(nonatomic) CGPoint rotationControlStartPoint;
 @property(nonatomic) CGFloat rotationAngle;
@@ -372,10 +371,21 @@
     }
 }
 
-- (void)changeCanvasImage:(NSString*)imageName
+- (void)setCanvasImageNamed:(NSString *)imageName
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"textbox_duplicate"]];
-    [self.canvas changeToView:imageView];
+    [self.canvas setCanvasView:imageView];
+}
+
+- (void)setCanvasImage:(UIImage *)image
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [self.canvas setCanvasView:imageView];
+}
+
+- (void)setCanvasView:(UIView *)view
+{
+    [self.canvas setCanvasView:view];
 }
 
 -(void)restrictCenterPoint
