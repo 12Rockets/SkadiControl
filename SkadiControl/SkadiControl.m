@@ -66,16 +66,14 @@
         self.delegate = controlsDelegate;
         
         self.confirmControl = [[WControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
-        [self.confirmControl setImage:[UIImage imageNamed:@"textbox_duplicate"]];
         
         self.rotationControl = [[WControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
-        [self.rotationControl setImage:[UIImage imageNamed:@"textbox_rotate"]];
         
         self.scalingControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
-        [self.scalingControl setImage:[UIImage imageNamed:@"textbox_resize"]];
         
         self.deletionControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
-        [self.deletionControl setImage:[UIImage imageNamed:@"textbox_close"]];
+        
+        [self setAssetsWithNameForConfirm:@"textbox_duplicate" forControl:@"textbox_rotate" forScaling:@"textbox_resize" andForDeletion:@"textbox_close"];
         
         [self addSubview:self.confirmControl];
         [self addSubview:self.deletionControl];
@@ -421,6 +419,16 @@
     self.rotationControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
     self.deletionControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
 }
+
+-(void)setAssetsWithNameForConfirm: (NSString *)confirmAssetName forControl: (NSString *)rotationAssetName forScaling: (NSString *)scalingAssetName andForDeletion:(NSString *)deletionAssetName
+{
+    [self.confirmControl setImage:[UIImage imageNamed:confirmAssetName]];
+    [self.rotationControl setImage:[UIImage imageNamed:rotationAssetName]];
+    [self.scalingControl setImage:[UIImage imageNamed:scalingAssetName]];
+    [self.deletionControl setImage:[UIImage imageNamed:deletionAssetName]];
+}
+
+
 @synthesize scale = _scale;
 @synthesize rotationAngle = _rotationAngle;
 -(CGFloat)scale
@@ -443,5 +451,6 @@
     _rotationAngle= rotationAngle;
     [self setTransformWithScale:self.scale andRotation:rotationAngle];
 }
+
 
 @end

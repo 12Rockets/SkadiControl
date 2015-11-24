@@ -32,6 +32,7 @@
 
 - (void)controlSelected:(BOOL)selected;
 
+-(void)setAssetsWithNameForConfirm: (NSString *)confirm forControl: (NSString *)rotation forScaling: (NSString *)scaling andForDeletion:(NSString *)deletion;
 - (void)setCanvasImageNamed:(NSString *)imageName;
 - (void)setCanvasImage:(UIImage *)image;
 - (void)setCanvasView:(UIView *)view;
