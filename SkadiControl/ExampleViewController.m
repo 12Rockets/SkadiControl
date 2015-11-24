@@ -7,15 +7,15 @@
 //
 
 #import "ExampleViewController.h"
-#import "SkadiContainer.h"
+#import "SkadiControl.h"
 
-@interface ExampleViewController()
+@interface ExampleViewController() <SkadiControlDelegate>
 
 @property (nonatomic, strong) NSMutableArray *viewControllerNames;
 @property (weak, nonatomic) IBOutlet UIView *viewForControls;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 
-@property (strong, nonatomic) SkadiContainer *container;
+@property (strong, nonatomic) SkadiControl *container;
 @end
 
 
@@ -38,11 +38,19 @@
     [self.viewForControls addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
-    self.container = [[SkadiContainer alloc] initWithDefaultFrame];
     
-    [self.containerView addSubview:self.container];
-
+    self.container = [[SkadiControl alloc] initWithFrame:CGRectZero superview:self.view controlsDelegate:self startPosition:CGPointMake(200, 200) imageNamed:@"12rockets"];
 }
+
+- (void)skadiControlDidSelect:(id)sender
+{
+    NSLog(@"Sticker selected");
+}
+- (void)skadiControlWillRemove:(id)sender
+{
+    NSLog(@"Sticker removed");
+}
+
 -(void)viewWillLayoutSubviews
 {
     float xRange = self.containerView.frame.size.width;
