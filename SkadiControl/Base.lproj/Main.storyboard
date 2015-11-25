@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PHP-pz-7tR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PHP-pz-7tR">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -71,7 +71,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="containerView" destination="wub-SA-IKz" id="VBI-rJ-awG"/>
+                        <outlet property="skadiView" destination="wub-SA-IKz" id="60X-VI-mgN"/>
                         <outlet property="viewForControls" destination="zBO-dS-kvr" id="uXt-ql-ArX"/>
                     </connections>
                 </viewController>
@@ -90,7 +90,7 @@
         <!--Pages Contents-->
         <scene sceneID="TWM-Cu-onK">
             <objects>
-                <viewController storyboardIdentifier="PageFour" id="Xn1-qx-Kn1" customClass="PagesContents" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CenterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Xn1-qx-Kn1" customClass="PagesContents" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nqy-ai-554"/>
                         <viewControllerLayoutGuide type="bottom" id="dt5-AG-jDg"/>
@@ -195,7 +195,7 @@
         <!--Pages Contents-->
         <scene sceneID="Lu6-4M-0dw">
             <objects>
-                <viewController storyboardIdentifier="PageTwo" id="bep-ms-86W" customClass="PagesContents" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScaleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bep-ms-86W" customClass="PagesContents" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SLC-Ud-2yd"/>
                         <viewControllerLayoutGuide type="bottom" id="ylR-GH-dOT"/>
@@ -258,7 +258,7 @@
         <!--Pages Contents-->
         <scene sceneID="lny-fc-Kv4">
             <objects>
-                <viewController storyboardIdentifier="PageFive" id="VDW-rJ-RaB" customClass="PagesContents" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VDW-rJ-RaB" customClass="PagesContents" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K98-EB-OrB"/>
                         <viewControllerLayoutGuide type="bottom" id="OhC-xN-2n9"/>
@@ -329,7 +329,7 @@
         <!--Pages Contents-->
         <scene sceneID="0LI-UR-dv3">
             <objects>
-                <viewController storyboardIdentifier="PageOne" id="s6o-hI-KRn" customClass="PagesContents" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s6o-hI-KRn" customClass="PagesContents" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lai-06-w0D"/>
                         <viewControllerLayoutGuide type="bottom" id="bhg-oA-c3c"/>
@@ -400,7 +400,7 @@
         <!--Pages Contents-->
         <scene sceneID="NdD-EI-pmu">
             <objects>
-                <viewController storyboardIdentifier="PageThree" id="aNp-jo-3Mk" customClass="PagesContents" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RotationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aNp-jo-3Mk" customClass="PagesContents" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2aW-XO-SXJ"/>
                         <viewControllerLayoutGuide type="bottom" id="4N6-Om-yte"/>

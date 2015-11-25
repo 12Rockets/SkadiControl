@@ -12,21 +12,7 @@
 
 @interface PagesContents ()
 
-//Page1
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *imagesForContainer;
 
-//Page2
-@property (weak, nonatomic) IBOutlet UISlider *scaleSlider;
-
-//Page3
-@property (weak, nonatomic) IBOutlet UISlider *rotationSlider;
-
-//Page4
-@property (weak, nonatomic) IBOutlet UISlider *centerXSlider;
-@property (weak, nonatomic) IBOutlet UISlider *centerYSlider;
-
-//Page5
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *setOfAssets;
 
 @end
 

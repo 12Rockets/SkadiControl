@@ -28,6 +28,11 @@
 
 @property(nonatomic) CGFloat validYTranslation;
 @property(nonatomic) CGFloat validXTranslation;
+
+@property(nonatomic) CGFloat startRotationAngle;
+@property(nonatomic) CGFloat startScale;
+@property(nonatomic) CGPoint startPoint;
+
 @property(nonatomic) CGPoint translation;
 @property(nonatomic) CGPoint scalingControlStartPoint;
 @property(nonatomic) CGPoint rotationControlStartPoint;
@@ -44,11 +49,50 @@
 
 @implementation SkadiControl
 
--(id)initWithFrame:(CGRect)frame
-      superview:(UIView *)superview
-       controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
-  startPosition:(CGPoint)pos
-     imageNamed:(NSString*)imageName
+#pragma mark - Constructors
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+         startPosition:(CGPoint)pos
+            imageNamed:(NSString*)imageName
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets"]];
+    
+   return [self initWithsuperview:superview controlsDelegate:controlsDelegate startPosition:pos view:imageView];
+}
+
+
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+            imageNamed:(NSString*)imageName
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets"]];
+    CGPoint pos = CGPointMake(superview.frame.size.width/2, superview.frame.size.height/2);
+    return [self initWithsuperview:superview controlsDelegate:controlsDelegate startPosition:pos view:imageView];
+}
+
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+         startPosition:(CGPoint)pos
+                 image:(UIImage*)image
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    return [self initWithsuperview:superview controlsDelegate:controlsDelegate startPosition:pos view:imageView];
+}
+
+
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+                 image:(UIImage*)image
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    CGPoint pos = CGPointMake(superview.frame.size.width/2, superview.frame.size.height/2);
+    return [self initWithsuperview:superview controlsDelegate:controlsDelegate startPosition:pos view:imageView];
+}
+
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+         startPosition:(CGPoint)pos
+                  view:(UIView*)canvasView
 {
     // Initialize adjustable view
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets"]];
@@ -61,7 +105,7 @@
         [self addSubview:self.canvas];
         
         self.defaultCenterPoint = pos;
-    
+        
         // Initialize controls
         self.delegate = controlsDelegate;
         
@@ -82,10 +126,10 @@
         
         self.initial = YES;
         
-        self.scale = LABEL_SCALE;
+        _scale = LABEL_SCALE;
         self.validYTranslation = 0;
         self.translation = CGPointZero;
-        self.rotationAngle = 0;
+        _rotationAngle = 0;
         
         CGAffineTransform transform = CGAffineTransformMakeScale(self.scale, self.scale);
         transform = CGAffineTransformTranslate(transform, self.translation.x, self.translation.y);
@@ -101,7 +145,7 @@
         self.scalingControl.userInteractionEnabled = YES;
         self.rotationControl.userInteractionEnabled = YES;
         self.deletionControl.userInteractionEnabled = YES;
-    
+        
         //Gesture recognizers
         self.rotationGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotationControlGesture:)];
         self.rotationGestureRecognizer.minimumNumberOfTouches = 1;
@@ -144,6 +188,14 @@
 }
 
 
+-(id)initWithsuperview:(UIView *)superview
+      controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
+                  view:(UIView*)canvasView
+{
+    CGPoint pos = CGPointMake(superview.frame.size.width/2, superview.frame.size.height/2);
+    return [self initWithsuperview:superview controlsDelegate:controlsDelegate startPosition:pos view:canvasView];
+}
+
 #pragma mark -
 #pragma mark Gesture handling
 
@@ -180,6 +232,7 @@
     if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         self.rotationControlStartPoint = [gestureRecognizer locationInView:self.superview];
+        self.startRotationAngle = self.rotationAngle;
     }
     else if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
             gestureRecognizer.state == UIGestureRecognizerStateEnded)
@@ -196,24 +249,21 @@
         CGFloat currentAngle = atan2f(currentPoint.y-center.y, currentPoint.x - center.x);
         CGFloat startAngle = atan2f(self.rotationControlStartPoint.y-center.y, self.rotationControlStartPoint.x - center.x);
         
-        
         transform = CGAffineTransformScale(transform, self.scale, self.scale);
-        transform = CGAffineTransformRotate(transform, currentAngle-startAngle+self.rotationAngle);
+        transform = CGAffineTransformRotate(transform, currentAngle-startAngle+self.startRotationAngle);
         self.transform = transform;
 
-        CGAffineTransform controlTransform = CGAffineTransformMakeRotation(-currentAngle+startAngle-self.rotationAngle);
+        CGAffineTransform controlTransform = CGAffineTransformMakeRotation(-currentAngle+startAngle-self.startRotationAngle);
 
         self.confirmControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.scalingControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.rotationControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.deletionControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
        
-        
-        if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-        {
-            self.rotationAngle += currentAngle-startAngle;
+        _rotationAngle = currentAngle-startAngle+self.startRotationAngle;
+
+        [self.delegate skadiControlDidRotate:self];
         }
-    }
 }
 
 - (void)handleScaleControlGesture:(UIPanGestureRecognizer *)gestureRecognizer
@@ -253,10 +303,10 @@
         self.rotationControl.transform = controlTransform;
         self.deletionControl.transform = controlTransform;
         
-        
+        [self.delegate skadiControlDidScale:self];
         if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
         {
-            self.scale = scaleToPerform;
+            _scale = scaleToPerform;
         }
     }
 }
@@ -334,6 +384,8 @@
     transform = CGAffineTransformRotate(transform, self.rotationAngle);
     self.transform = transform;
     
+    [self.delegate skadiControlDidTranslate:self];
+    
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
         self.translation = CGPointMake(xTranslation,
                                        yTranslation);
@@ -405,19 +457,21 @@
 
 -(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation
 {
-    //self.scale = scale;
-    //self.rotationAngle = rotation;
-    self.translation = CGPointZero;
+// From outside
     
-    CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
+    transform = CGAffineTransformScale(transform, scale, scale);
     transform = CGAffineTransformRotate(transform, rotation);
     
     self.transform = transform;
-
-    self.confirmControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
-    self.scalingControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
-    self.rotationControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
-    self.deletionControl.transform = CGAffineTransformMakeScale(1.0/scale, 1.0/scale);
+    
+    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/self.scale, 1/self.scale);
+    controlTransform = CGAffineTransformRotate(controlTransform, -self.rotationAngle);
+    
+    self.confirmControl.transform = controlTransform;
+    self.scalingControl.transform = controlTransform;
+    self.rotationControl.transform = controlTransform;
+    self.deletionControl.transform = controlTransform;
 }
 
 -(void)setAssetsWithNameForConfirm: (NSString *)confirmAssetName forControl: (NSString *)rotationAssetName forScaling: (NSString *)scalingAssetName andForDeletion:(NSString *)deletionAssetName
@@ -431,6 +485,7 @@
 
 @synthesize scale = _scale;
 @synthesize rotationAngle = _rotationAngle;
+
 -(CGFloat)scale
 {
     return _scale;

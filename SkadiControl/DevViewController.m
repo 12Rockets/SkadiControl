@@ -10,7 +10,7 @@
 #import "SkadiControl.h"
 
 @interface DevViewController () <SkadiControlDelegate>
-@property (nonatomic, strong)SkadiControl *sticker;
+@property (nonatomic, strong)SkadiControl *skadi;
 
 @end
 
@@ -20,12 +20,8 @@
     
     [super viewDidLoad];
     
-    self.sticker = [[SkadiControl alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)
-                                                 superview:self.view
-                                          controlsDelegate:self
-                                             startPosition:CGPointMake(400.0, 400.0)
-                                                imageNamed:@"textbox_duplicate"];
-    
+    self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets"];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -34,10 +30,26 @@
 }
 - (void)skadiControlDidSelect:(id)sender
 {
-    NSLog(@"Sticker selected");    
+    NSLog(@"control selected");
 }
 - (void)skadiControlWillRemove:(id)sender
 {
-    NSLog(@"Sticker removed");
+    NSLog(@"control removed");
 }
+- (void)skadiControlDidTranslate:(id)sender
+{
+    NSLog(@"control moved: %f, %f", self.skadi.center.x, self.skadi.center.y);
+}
+
+- (void)skadiControlDidScale:(id)sender
+{
+    NSLog(@"control scale: %f", self.skadi.scale);
+}
+
+- (void)skadiControlDidRotate:(id)sender
+{
+    NSLog(@"control rotate: %f", self.skadi.rotationAngle);
+    
+}
+
 @end

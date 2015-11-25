@@ -9,14 +9,15 @@
 #import "ExampleViewController.h"
 #import "SkadiControl.h"
 #import "Notifications.h"
+#import "PagesContents.h"
 
 @interface ExampleViewController() <SkadiControlDelegate>
 
 @property (nonatomic, strong) NSMutableArray *viewControllerNames;
 @property (weak, nonatomic) IBOutlet UIView *viewForControls;
-@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *skadiView;
 
-@property (strong, nonatomic) SkadiControl *container;
+@property (strong, nonatomic) SkadiControl *skadi;
 @end
 
 
@@ -26,7 +27,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.viewControllerNames = [NSMutableArray arrayWithObjects: @"PageOne", @"PageTwo", @"PageThree",@"PageFour", @"PageFive", nil];
+    self.viewControllerNames = [NSMutableArray arrayWithObjects: @"ImageVC", @"ScaleVC", @"RotationVC",@"CenterVC", @"SetVC", nil];
     
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageVC"];
     self.pageViewController.dataSource = self;
@@ -40,14 +41,14 @@
     [self.pageViewController didMoveToParentViewController:self];
     
     
-    self.container = [[SkadiControl alloc] initWithFrame:CGRectZero superview:self.view controlsDelegate:self startPosition:CGPointMake(200, 200) imageNamed:@"12rockets"];
+    self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets"];
 }
 -(void)viewWillLayoutSubviews
 {
-    float xRange = self.containerView.frame.size.width;
-    float yRange = self.containerView.frame.size.height;
-    float initialScale = self.container.scale;
-    float initialRotation = self.container.rotationAngle;
+    float xRange = self.skadiView.frame.size.width;
+    float yRange = self.skadiView.frame.size.height;
+    float initialScale = self.skadi.scale;
+    float initialRotation = self.skadi.rotationAngle;
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     [dict setObject:[NSNumber numberWithFloat:xRange] forKey:@"xRange"];
@@ -87,13 +88,13 @@
 -(void)onScaleChanged: (NSNotification *)notification
 {
     float scale = [[notification object] floatValue];
-    [self.container setScale:scale];
+    [self.skadi setScale:scale];
 
 }
 -(void)onRotationChanged: (NSNotification *)notification
 {
     float rotation = [[notification object] floatValue];
-    [self.container setRotationAngle:rotation];
+    [self.skadi setRotationAngle:rotation];
 }
 -(void)onCenterXChanged: (NSNotification *)notification
 {
@@ -108,7 +109,7 @@
 -(void)onImageChanged: (NSNotification *)notification
 {
     NSString *imageName = [notification object];
-    [self.container setCanvasImageNamed:imageName];
+    [self.skadi setCanvasImageNamed:imageName];
 }
 -(void)onAssetsChanged: (NSNotification *)notification
 {
@@ -118,13 +119,34 @@
 
 - (void)skadiControlDidSelect:(id)sender
 {
-    NSLog(@"Sticker selected");
+    NSLog(@"control selected");
 }
 - (void)skadiControlWillRemove:(id)sender
 {
-    NSLog(@"Sticker removed");
+    NSLog(@"control removed");
+}
+- (void)skadiControlDidTranslate:(id)sender
+{
+    NSLog(@"control moved: %f, %f", self.skadi.center.x, self.skadi.center.y);
 }
 
+- (void)skadiControlDidScale:(id)sender
+{
+    NSLog(@"control scale: %f", self.skadi.scale);
+}
+
+- (void)skadiControlDidRotate:(id)sender
+{
+    NSLog(@"control rotate: %f", self.skadi.rotationAngle);
+    for (PagesContents *pVC in self.viewControllerArray)
+    {
+        if ([pVC.restorationIdentifier isEqualToString:@"RotationVC"])
+        {
+            [pVC.rotationSlider setValue:self.skadi.rotationAngle animated:YES];
+        }
+    }
+    
+}
 
 - (NSMutableArray *)viewControllerArray
 {
@@ -141,7 +163,7 @@
 
     for (NSString *name in self.viewControllerNames) {
         
-        UIViewController *vc = [story instantiateViewControllerWithIdentifier:name];
+        PagesContents *vc = [story instantiateViewControllerWithIdentifier:name];
         [self.viewControllerArray addObject:vc];
     }
 }

@@ -8,15 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PageControlDelegate
 
-- (void)onScaleChanged:(float)scale;
-- (void)onRotationChanged:(float)rotation;
-
-@end
 
 @interface PagesContents : UIViewController
+//Page1
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *imagesForContainer;
 
-@property(nonatomic, weak) id <PageControlDelegate> delegate;
+//Page2
+@property (weak, nonatomic) IBOutlet UISlider *scaleSlider;
 
+//Page3
+@property (weak, nonatomic) IBOutlet UISlider *rotationSlider;
+
+//Page4
+@property (weak, nonatomic) IBOutlet UISlider *centerXSlider;
+@property (weak, nonatomic) IBOutlet UISlider *centerYSlider;
+
+//Page5
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *setOfAssets;
 @end
