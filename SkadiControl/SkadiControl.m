@@ -15,7 +15,7 @@
 #define CONTROL_WIDTH   (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
 #define CONTROL_HEIGHT  (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
 #define LABEL_SCALE     (USING_IPAD ? IPAD_SCALE*0.4  : 0.8)
-#define MAX_SCALE       (USING_IPAD ? IPAD_SCALE*5.2  : 5.2)
+#define MAX_SCALE       (USING_IPAD ? IPAD_SCALE*1.0  : 5.2)
 #define MIN_SCALE       (USING_IPAD ? IPAD_SCALE*0.2  : 0.2)
 
 
@@ -125,11 +125,16 @@
         [self addSubview:self.scalingControl];
         
         self.initial = YES;
-        
+
         _scale = LABEL_SCALE;
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
+        
+        //rotation
+        CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];
+        CGFloat y = fabs(self.center.y - self.rotationControl.center.y);
+        _startRotationAngle = M_PI_2 + acosf(y/r);
         
         CGAffineTransform transform = CGAffineTransformMakeScale(self.scale, self.scale);
         transform = CGAffineTransformTranslate(transform, self.translation.x, self.translation.y);
@@ -226,44 +231,100 @@
 {
     [self.delegate skadiControlWillRemove:self];
 }
+// self.rotationControlStartPoint A
+// currentPoint                   B
+// center                         C
 
 - (void)handleRotationControlGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        self.rotationControlStartPoint = [gestureRecognizer locationInView:self.superview];
-        self.startRotationAngle = self.rotationAngle;
-    }
-    else if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
+    if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
             gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
-        
         CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
         CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
         
-        CGFloat startDistance = [self distanceFrom:center to:self.rotationControlStartPoint];
-        if(startDistance==0)
-            return;
+//        CGFloat startDistance = [self distanceFromPoint:center toPoint:self.rotationControlStartPoint];
+//        if(startDistance==0)
+//            return;
+//        
+//        float currentRotation = [self angleAgainstPoint:center withPoint:currentPoint withPoint:self.rotationControlStartPoint];
+//        
+
+        CGFloat x = (center.x - currentPoint.x);
+        CGFloat y = (center.y - currentPoint.y);
         
-        CGFloat currentAngle = atan2f(currentPoint.y-center.y, currentPoint.x - center.x);
-        CGFloat startAngle = atan2f(self.rotationControlStartPoint.y-center.y, self.rotationControlStartPoint.x - center.x);
+        CGFloat r = sqrtf(powf(x, 2.0) + powf(y, 2.0));
         
+        CGFloat TETA;
+        if (y>0)
+        {
+            if (x>0)
+            {
+                TETA = M_PI + acosf(fabs(x)/r);
+
+            }
+            else
+            {
+                TETA = 3*M_PI_2 + acosf(fabs(y)/r);
+
+            }
+        }
+        else
+        {
+            if (x<0)
+            {
+                TETA = acosf(fabs(x)/r);
+
+            }
+            else
+            {
+                TETA = M_PI_2 + acosf(fabs(y)/r);
+
+            }
+        }
+        
+        NSLog(@"Angle: %f", TETA);
+        
+        
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
         transform = CGAffineTransformScale(transform, self.scale, self.scale);
-        transform = CGAffineTransformRotate(transform, currentAngle-startAngle+self.startRotationAngle);
+        transform = CGAffineTransformRotate(transform, TETA - self.startRotationAngle);
         self.transform = transform;
 
-        CGAffineTransform controlTransform = CGAffineTransformMakeRotation(-currentAngle+startAngle-self.startRotationAngle);
+        CGAffineTransform controlTransform = CGAffineTransformMakeRotation(-TETA+self.startRotationAngle);
 
         self.confirmControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.scalingControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.rotationControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
         self.deletionControl.transform = CGAffineTransformScale(controlTransform, 1.0/self.scale, 1.0/self.scale);
        
-        _rotationAngle = currentAngle-startAngle+self.startRotationAngle;
+        _rotationAngle = TETA - self.startRotationAngle;
+        _rotationAngle = _rotationAngle > 0 ? _rotationAngle : 2*M_PI + TETA - self.startRotationAngle;
 
         [self.delegate skadiControlDidRotate:self];
-        }
+    }
+}
+
+- (float)angleAgainstPoint:(CGPoint)C withPoint:(CGPoint)A withPoint:(CGPoint)B
+{
+    // cosine law
+    float a = [self distanceFrom:B to:C];
+    float b = [self distanceFrom:A to:C];
+    float c = [self distanceFrom:A to:B];
+    
+    float cosine = (powf(a, 2.0) + powf(b, 2.0) - powf(c, 2.0))/(2*a*b);
+    
+
+    return acosf(cosine);
+}
+
+- (float)distanceFromPoint:(CGPoint)a toPoint:(CGPoint)b
+{
+    CGFloat x = a.x - b.x;
+    CGFloat y = a.y - b.y;
+    
+    CGFloat r = sqrtf(powf(x, 2.0) + powf(y, 2.0));
+    return r;
 }
 
 - (void)handleScaleControlGesture:(UIPanGestureRecognizer *)gestureRecognizer

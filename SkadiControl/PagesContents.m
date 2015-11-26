@@ -12,9 +12,12 @@
 
 @interface PagesContents ()
 
-
-
 @end
+
+float xRange;
+float yRange;
+float scale;
+float rotation;
 
 @implementation PagesContents
 
@@ -23,7 +26,7 @@
     [super viewDidLoad];
     [self setup];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(centerRange:) name:NOTIFICATION_INITIAL_DATA
+                                             selector:@selector(setInitialData:) name:NOTIFICATION_INITIAL_DATA
                                                object:nil];
 }
 -(void)setup
@@ -31,10 +34,34 @@
     [self.scaleSlider setMinimumValue:0.5f];
     [self.scaleSlider setMaximumValue:1.5f];
     
-    [self.rotationSlider setMinimumValue:-2*M_PI];
+    [self.rotationSlider setMinimumValue:0];
     [self.rotationSlider setMaximumValue:2*M_PI];
 
 }
+- (void)setInitialData:(NSNotification *)notification
+{
+    
+    NSDictionary *dict = [notification object];
+    
+    xRange =[[dict objectForKey:@"xRange"] floatValue];
+    yRange =[[dict objectForKey:@"yRange"] floatValue];
+    scale =[[dict objectForKey:@"scale"] floatValue];
+    rotation =[[dict objectForKey:@"rotation"] floatValue];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.centerXSlider setMinimumValue:0.0f];
+    [self.centerXSlider setMaximumValue:xRange];
+    
+    [self.centerYSlider setMinimumValue:0.0f];
+    [self.centerYSlider setMaximumValue:yRange];
+    
+    [self.scaleSlider setValue:scale];
+    [self.rotationSlider setValue:rotation];
+}
+
 - (IBAction)onScaleChanged:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ON_SCALE_CHANGED object:[NSNumber numberWithFloat:self.scaleSlider.value]];
 }
@@ -71,24 +98,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ON_ASSETS_CHANGED object:imageName];
     }
 }
--(void)centerRange: (NSNotification *)notification
-{
-    NSDictionary *dict = [notification object];
-    
-    float xRange =[[dict objectForKey:@"xRange"] floatValue];
-    float yRange =[[dict objectForKey:@"yRange"] floatValue];
-    float scale =[[dict objectForKey:@"scale"] floatValue];
-    float rotation =[[dict objectForKey:@"rotation"] floatValue];
-    
-    [self.centerXSlider setMinimumValue:0.0f];
-    [self.centerXSlider setMaximumValue:xRange -1];
-    
-    [self.centerYSlider setMinimumValue:0.0f];
-    [self.centerYSlider setMaximumValue:yRange -1];
-    
-    [self.scaleSlider setValue:scale];
-    [self.rotationSlider setValue:rotation];
-    
-}
+
 
 @end

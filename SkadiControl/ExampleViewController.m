@@ -43,8 +43,11 @@
     
     self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets"];
 }
--(void)viewWillLayoutSubviews
+
+-(void)viewDidAppear:(BOOL)animated
 {
+    [self notifications];
+    
     float xRange = self.skadiView.frame.size.width;
     float yRange = self.skadiView.frame.size.height;
     float initialScale = self.skadi.scale;
@@ -57,11 +60,6 @@
     [dict setObject:[NSNumber numberWithFloat:initialRotation] forKey:@"rotation"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_INITIAL_DATA object:dict];
-
-}
--(void)viewDidAppear:(BOOL)animated
-{
-    [self notifications];
 }
 
 -(void)notifications

@@ -69,8 +69,5 @@
 - (void)setCanvasImage:(UIImage *)image;
 - (void)setCanvasView:(UIView *)view;
 
--(void)setRotationAngle:(CGFloat)rotationAngle;
--(void)setScale:(CGFloat)scale;
-
 @end
 

@@ -44,18 +44,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBO-dS-kvr">
-                                <rect key="frame" x="0.0" y="490" width="600" height="100"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wub-SA-IKz">
+                                <rect key="frame" x="10" y="70" width="580" height="410"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zBO-dS-kvr">
+                                <rect key="frame" x="0.0" y="492" width="600" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Pxt-CG-7Hd"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wub-SA-IKz">
-                                <rect key="frame" x="10" y="70" width="580" height="410"/>
-                                <animations/>
-                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <animations/>
@@ -116,18 +116,18 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="e07-GJ-i08">
-                                        <rect key="frame" x="80" y="31" width="492" height="31"/>
-                                        <animations/>
-                                        <connections>
-                                            <action selector="onYCenterChanged:" destination="Xn1-qx-Kn1" eventType="valueChanged" id="auw-8K-U2l"/>
-                                        </connections>
-                                    </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dTc-bt-Val">
                                         <rect key="frame" x="80" y="0.0" width="492" height="31"/>
                                         <animations/>
                                         <connections>
                                             <action selector="onXCentarChanged:" destination="Xn1-qx-Kn1" eventType="valueChanged" id="CvW-y1-UrF"/>
+                                        </connections>
+                                    </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="e07-GJ-i08">
+                                        <rect key="frame" x="80" y="31" width="492" height="31"/>
+                                        <animations/>
+                                        <connections>
+                                            <action selector="onYCenterChanged:" destination="Xn1-qx-Kn1" eventType="valueChanged" id="auw-8K-U2l"/>
                                         </connections>
                                     </slider>
                                 </subviews>
