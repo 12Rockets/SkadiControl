@@ -14,6 +14,8 @@
 
 @end
 
+float xCenter;
+float yCenter;
 float xRange;
 float yRange;
 float scale;
@@ -42,7 +44,7 @@ float rotation;
 {
     
     NSDictionary *dict = [notification object];
-    
+
     xRange =[[dict objectForKey:@"xRange"] floatValue];
     yRange =[[dict objectForKey:@"yRange"] floatValue];
     scale =[[dict objectForKey:@"scale"] floatValue];

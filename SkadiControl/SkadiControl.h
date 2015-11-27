@@ -14,6 +14,7 @@
 
 - (void)skadiControlDidSelect:(id)sender;
 - (void)skadiControlWillRemove:(id)sender;
+- (void)skadiControlDidConfirm:(id)sender;
 - (void)skadiControlDidScale:(id)sender;
 - (void)skadiControlDidRotate:(id)sender;
 - (void)skadiControlDidTranslate:(id)sender;
@@ -69,6 +70,8 @@
 - (void)setCanvasImageNamed:(NSString *)imageName;
 - (void)setCanvasImage:(UIImage *)image;
 - (void)setCanvasView:(UIView *)view;
+- (void)setXCenter: (float)centerX;
+- (void)setYCenter: (float)centerY;
 
 @end
 

@@ -40,7 +40,7 @@
     [self.viewForControls addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
-    
+    //TODO: change superview to self.skadiView
     self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets-square"];
 }
 
@@ -48,12 +48,16 @@
 {
     [self notifications];
     
+    float xCenter = self.skadiView.frame.origin.x;
+    float yCenter = self.skadiView.frame.origin.y;
     float xRange = self.skadiView.frame.size.width;
     float yRange = self.skadiView.frame.size.height;
     float initialScale = self.skadi.scale;
     float initialRotation = self.skadi.rotationAngle;
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    [dict setObject:[NSNumber numberWithFloat:xCenter] forKey:@"xCenter"];
+    [dict setObject:[NSNumber numberWithFloat:yCenter] forKey:@"yCenter"];
     [dict setObject:[NSNumber numberWithFloat:xRange] forKey:@"xRange"];
     [dict setObject:[NSNumber numberWithFloat:yRange] forKey:@"yRange"];
     [dict setObject:[NSNumber numberWithFloat:initialScale] forKey:@"scale"];
@@ -97,12 +101,12 @@
 -(void)onCenterXChanged: (NSNotification *)notification
 {
     float centerX = [[notification object] floatValue];
-    //change centerX
+    [self.skadi setXCenter:centerX];
 }
 -(void)onCenterYChanged: (NSNotification *)notification
 {
     float centerY = [[notification object] floatValue];
-    //change centerY
+    [self.skadi setYCenter:centerY];
 }
 -(void)onImageChanged: (NSNotification *)notification
 {
@@ -125,17 +129,17 @@
 {
     NSString *assetsName = [notification object];
     
-    if ([assetsName isEqualToString:@"Blue"])
+    if ([assetsName isEqualToString:@"Green"])
     {
-        [self.skadi setAssetsWithNameForConfirm:@"confirm-blue" forRotation:@"rotate-blue" forScaling:@"scale-blue" andForDeletion:@"delete-blue"];
+        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-green" forRotation:@"skadi-rotate-green" forScaling:@"skadi-scale-green" andForDeletion:@"skadi-delete-green"];;
         
-    }else if ([assetsName isEqualToString:@"Yellow"]) {
+    }else if ([assetsName isEqualToString:@"Default"]) {
         
-        [self.skadi setAssetsWithNameForConfirm:@"confirm-yellow" forRotation:@"rotate-yellow" forScaling:@"scale-yellow" andForDeletion:@"delete-yellow"];
+        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-default" forRotation:@"skadi-rotate-default" forScaling:@"skadi-scale-default" andForDeletion:@"skadi-delete-default"];
         
-    }else if ([assetsName isEqualToString:@"Red"])
+    }else if ([assetsName isEqualToString:@"Purple"])
     {
-        [self.skadi setAssetsWithNameForConfirm:@"confirm-red" forRotation:@"rotate-red" forScaling:@"scale-red" andForDeletion:@"delete-red"];
+        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-purple" forRotation:@"skadi-rotate-purple" forScaling:@"skadi-scale-purple" andForDeletion:@"skadi-delete-purple"];
     }
 }
 - (void)skadiControlDidSelect:(id)sender
@@ -146,9 +150,14 @@
 {
     NSLog(@"control removed");
 }
+- (void)skadiControlDidConfirm:(id)sender
+{
+    NSLog(@"control is confirmed");
+}
 - (void)skadiControlDidTranslate:(id)sender
 {
     NSLog(@"control moved: %f, %f", self.skadi.center.x, self.skadi.center.y);
+    NSLog(@"control width and height: %f %f", self.skadi.frame.size.width, self.skadi.frame.size.height);
 }
 
 - (void)skadiControlDidScale:(id)sender

@@ -44,6 +44,7 @@
 @property(nonatomic, strong) UIPanGestureRecognizer *scalingGestureRecognizer;
 @property(nonatomic, strong) UIPanGestureRecognizer *rotationGestureRecognizer;
 @property(nonatomic, strong) UITapGestureRecognizer *deletionTapGestureRecognizer;
+@property(nonatomic, strong) UITapGestureRecognizer *confirmTapGestureRecognizer;
 
 @property(nonatomic) CGFloat minTransformDistance;
 @property(nonatomic) CGFloat maxTransformDistance;
@@ -123,7 +124,7 @@
         
         self.deletionControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
-        [self setAssetsWithNameForConfirm:@"textbox_duplicate" forRotation:@"textbox_rotate" forScaling:@"textbox_resize" andForDeletion:@"textbox_close"];
+        [self setAssetsWithNameForConfirm:@"skadi-confirm-default" forRotation:@"skadi-rotate-default" forScaling:@"skadi-scale-default" andForDeletion:@"skadi-delete-default"];
         
         [self addSubview:self.confirmControl];
         [self addSubview:self.deletionControl];
@@ -195,6 +196,13 @@
         [self.deletionControl setExclusiveTouch:YES];
         self.deletionTapGestureRecognizer.delegate = self;
         
+        self.confirmTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(confirmTapGesture:)];
+        self.confirmTapGestureRecognizer.numberOfTapsRequired = 1;
+        [self.confirmControl addGestureRecognizer:self.confirmTapGestureRecognizer];
+        [self.confirmControl setExclusiveTouch:YES];
+        self.confirmTapGestureRecognizer.delegate = self;
+        
+        
         self.userInteractionEnabled = YES;
         [superview addSubview:self];
         
@@ -244,10 +252,21 @@
     return YES;
 }
 
+-(void)confirmTapGesture: (UITapGestureRecognizer *)gestureRecognizer
+{
+    [self.delegate skadiControlDidConfirm:self];
+}
 -(void)deletionTapGesture:(UITapGestureRecognizer *)gestureRecognizer
 {
+    [self deleteView];
     [self.delegate skadiControlWillRemove:self];
 }
+-(void)deleteView
+{
+    [self removeFromSuperview];
+}
+
+
 // self.rotationControlStartPoint A
 // currentPoint                   B
 // center                         C
@@ -588,6 +607,49 @@
     _rotationAngle= rotationAngle;
     [self setTransformWithScale:self.scale andRotation:rotationAngle];
 }
-
+-(void)setXCenter: (float)centerX
+{
+    float number = centerX - self.center.x;
+    CGFloat xTranslation = number;
+    CGFloat yTranslation = 0;
+    
+    if([self outOfBounds:self.center]){
+        xTranslation = self.validXTranslation;
+        yTranslation = self.validYTranslation;
+    }
+    else{
+        self.validXTranslation = xTranslation;
+        self.validYTranslation = yTranslation;
+    }
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(xTranslation, yTranslation);
+    
+    transform = CGAffineTransformScale(transform, self.scale, self.scale);
+    transform = CGAffineTransformRotate(transform, self.rotationAngle);
+    self.transform = transform;
+    self.center = CGPointMake(centerX, self.center.y);
+}
+-(void)setYCenter: (float)centerY
+{
+    float number = centerY - self.center.y;
+    CGFloat xTranslation = 0;
+    CGFloat yTranslation = number;
+    
+    if([self outOfBounds:self.center]){
+        xTranslation = self.validXTranslation;
+        yTranslation = self.validYTranslation;
+    }
+    else{
+        self.validXTranslation = xTranslation;
+        self.validYTranslation = yTranslation;
+    }
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(xTranslation, yTranslation);
+    
+    transform = CGAffineTransformScale(transform, self.scale, self.scale);
+    transform = CGAffineTransformRotate(transform, self.rotationAngle);
+    self.transform = transform;
+    self.center = CGPointMake(self.center.x, centerY);
+}
 
 @end
