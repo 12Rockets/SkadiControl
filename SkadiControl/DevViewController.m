@@ -43,7 +43,7 @@
 
 - (void)skadiControlDidScale:(id)sender
 {
-    NSLog(@"control scale: %f", self.skadi.scale);
+    NSLog(@"control scale: %f", self.skadi.transformScale);
 }
 
 - (void)skadiControlDidRotate:(id)sender

@@ -14,9 +14,9 @@
 
 #define CONTROL_WIDTH   (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
 #define CONTROL_HEIGHT  (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
-#define LABEL_SCALE     (USING_IPAD ? IPAD_SCALE*0.4  : 0.8)
-#define MAX_SCALE       (USING_IPAD ? IPAD_SCALE*1.0  : 5.2)
-#define MIN_SCALE       (USING_IPAD ? IPAD_SCALE*0.2  : 0.2)
+//#define LABEL_SCALE     (USING_IPAD ? IPAD_SCALE*0.4  : 0.8)
+//#define MAX_SCALE       (USING_IPAD ? IPAD_SCALE*1.0  : 5.2)
+//#define MIN_SCALE       (USING_IPAD ? IPAD_SCALE*0.2  : 0.2)
 
 
 @interface SkadiControl()
@@ -44,6 +44,12 @@
 @property(nonatomic, strong) UIPanGestureRecognizer *scalingGestureRecognizer;
 @property(nonatomic, strong) UIPanGestureRecognizer *rotationGestureRecognizer;
 @property(nonatomic, strong) UITapGestureRecognizer *deletionTapGestureRecognizer;
+
+@property(nonatomic) CGFloat minTransformDistance;
+@property(nonatomic) CGFloat maxTransformDistance;
+@property(nonatomic) CGFloat transformDistance;
+@property(nonatomic) CGFloat minScale;
+@property(nonatomic) CGFloat maxScale;
 
 @end
 
@@ -95,7 +101,7 @@
                   view:(UIView*)canvasView
 {
     // Initialize adjustable view
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets-square"]];
     
     self = [super initWithFrame:imageView.frame];
     
@@ -117,7 +123,7 @@
         
         self.deletionControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
-        [self setAssetsWithNameForConfirm:@"textbox_duplicate" forControl:@"textbox_rotate" forScaling:@"textbox_resize" andForDeletion:@"textbox_close"];
+        [self setAssetsWithNameForConfirm:@"textbox_duplicate" forRotation:@"textbox_rotate" forScaling:@"textbox_resize" andForDeletion:@"textbox_close"];
         
         [self addSubview:self.confirmControl];
         [self addSubview:self.deletionControl];
@@ -125,8 +131,17 @@
         [self addSubview:self.scalingControl];
         
         self.initial = YES;
-
-        _scale = LABEL_SCALE;
+        
+        self.maxTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(self.frame.size.width, self.frame.size.height)]; //2*self.frame.size.width;
+        self.minTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(CONTROL_WIDTH/2, CONTROL_HEIGHT/2)];    //CONTROL_WIDTH;
+        //self.maxTransformScale = 2* self.frame.size.width;
+        //self.minTransformScale = CONTROL_WIDTH;
+        self.transformDistance = [self distanceFrom:self.center to: self.scalingControlStartPoint];
+        self.transformScale =(self.transformDistance - self.minTransformDistance)/(self.maxTransformDistance - self.minTransformDistance);
+        _scale = 1;
+        self.minScale = self.scale * self.minTransformDistance/self.transformDistance;
+        self.maxScale = self.scale * self.maxTransformDistance/self.transformDistance;
+        
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
@@ -135,6 +150,8 @@
         CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];
         CGFloat y = fabs(self.center.y - self.rotationControl.center.y);
         _startRotationAngle = M_PI_2 + acosf(y/r);
+        
+
         
         CGAffineTransform transform = CGAffineTransformMakeScale(self.scale, self.scale);
         transform = CGAffineTransformTranslate(transform, self.translation.x, self.translation.y);
@@ -305,18 +322,18 @@
     }
 }
 
-- (float)angleAgainstPoint:(CGPoint)C withPoint:(CGPoint)A withPoint:(CGPoint)B
-{
-    // cosine law
-    float a = [self distanceFrom:B to:C];
-    float b = [self distanceFrom:A to:C];
-    float c = [self distanceFrom:A to:B];
-    
-    float cosine = (powf(a, 2.0) + powf(b, 2.0) - powf(c, 2.0))/(2*a*b);
-    
-
-    return acosf(cosine);
-}
+//- (float)angleAgainstPoint:(CGPoint)C withPoint:(CGPoint)A withPoint:(CGPoint)B
+//{
+//    // cosine law
+//    float a = [self distanceFrom:B to:C];
+//    float b = [self distanceFrom:A to:C];
+//    float c = [self distanceFrom:A to:B];
+//    
+//    float cosine = (powf(a, 2.0) + powf(b, 2.0) - powf(c, 2.0))/(2*a*b);
+//    
+//
+//    return acosf(cosine);
+//}
 
 - (float)distanceFromPoint:(CGPoint)a toPoint:(CGPoint)b
 {
@@ -341,15 +358,16 @@
         CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
         CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
         
-        CGFloat startDistance = [self distanceFrom:center to:self.scalingControlStartPoint];
-        CGFloat currentDistance = [self distanceFrom:center to:currentPoint];
-        if(startDistance==0)
-            return;
+        float newTransformDistance = [self distanceFrom:currentPoint to:center];
         
-        CGFloat newScale = currentDistance/startDistance;
+        CGFloat newScale = self.scale * newTransformDistance/self.transformDistance;
+
+        CGFloat scaleToPerform = MIN(self.maxScale, newScale);
+        scaleToPerform = MAX(self.minScale, scaleToPerform);
         
-        CGFloat scaleToPerform = MIN(MAX_SCALE, newScale*self.scale);
-        scaleToPerform = MAX(MIN_SCALE, scaleToPerform);
+        self.transformDistance = MIN(newTransformDistance, self.maxTransformDistance);
+        self.transformDistance = MAX(self.transformDistance, self.minTransformDistance);
+
         
         transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
         transform = CGAffineTransformRotate(transform, self.rotationAngle);
@@ -364,11 +382,10 @@
         self.rotationControl.transform = controlTransform;
         self.deletionControl.transform = controlTransform;
         
+        self.transformScale = (self.transformDistance- self.minTransformDistance)/(self.maxTransformDistance - self.minTransformDistance);
+        _scale = scaleToPerform;
         [self.delegate skadiControlDidScale:self];
-        if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-        {
-            _scale = scaleToPerform;
-        }
+
     }
 }
 
@@ -483,7 +500,7 @@
 
 - (void)setCanvasImageNamed:(NSString *)imageName
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"textbox_duplicate"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     [self.canvas setCanvasView:imageView];
 }
 
@@ -535,7 +552,7 @@
     self.deletionControl.transform = controlTransform;
 }
 
--(void)setAssetsWithNameForConfirm: (NSString *)confirmAssetName forControl: (NSString *)rotationAssetName forScaling: (NSString *)scalingAssetName andForDeletion:(NSString *)deletionAssetName
+-(void)setAssetsWithNameForConfirm: (NSString *)confirmAssetName forRotation: (NSString *)rotationAssetName forScaling: (NSString *)scalingAssetName andForDeletion:(NSString *)deletionAssetName
 {
     [self.confirmControl setImage:[UIImage imageNamed:confirmAssetName]];
     [self.rotationControl setImage:[UIImage imageNamed:rotationAssetName]];
@@ -557,10 +574,14 @@
     return _rotationAngle;
 }
 
--(void)setScale:(CGFloat)scale
+-(void)setScale:(CGFloat)newTransformScale
 {
-    _scale = scale;
-    [self setTransformWithScale:scale andRotation:self.rotationAngle];
+    float newTransformDistance = (self.maxTransformDistance - self.minTransformDistance) * newTransformScale + self.minTransformDistance;
+    _scale = _scale * newTransformDistance/self.transformDistance;
+    [self setTransformWithScale:_scale andRotation:self.rotationAngle];
+    self.transformDistance = newTransformDistance;
+    self.transformScale = newTransformScale;
+
 }
 -(void)setRotationAngle:(CGFloat)rotationAngle
 {

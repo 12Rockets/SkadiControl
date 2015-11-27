@@ -26,6 +26,7 @@
 
 @property(nonatomic) CGFloat scale;
 @property(nonatomic) CGFloat rotationAngle;
+@property(nonatomic) CGFloat transformScale;
 
 -(id)initWithsuperview:(UIView *)superview
   controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
@@ -61,7 +62,7 @@
 - (void)controlSelected:(BOOL)selected;
 
 -(void)setAssetsWithNameForConfirm:(NSString *)confirm
-                        forControl:(NSString *)rotation
+                       forRotation:(NSString *)rotation
                         forScaling:(NSString *)scaling
                     andForDeletion:(NSString *)deletion;
 

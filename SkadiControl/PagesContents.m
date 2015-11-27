@@ -31,8 +31,8 @@ float rotation;
 }
 -(void)setup
 {
-    [self.scaleSlider setMinimumValue:0.5f];
-    [self.scaleSlider setMaximumValue:1.5f];
+    [self.scaleSlider setMinimumValue:0.0f];
+    [self.scaleSlider setMaximumValue:1.0f];
     
     [self.rotationSlider setMinimumValue:0];
     [self.rotationSlider setMaximumValue:2*M_PI];

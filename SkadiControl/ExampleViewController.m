@@ -23,9 +23,9 @@
 
 @implementation ExampleViewController
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidLoad
 {
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     
     self.viewControllerNames = [NSMutableArray arrayWithObjects: @"ImageVC", @"ScaleVC", @"RotationVC",@"CenterVC", @"SetVC", nil];
     
@@ -41,7 +41,7 @@
     [self.pageViewController didMoveToParentViewController:self];
     
     
-    self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets"];
+    self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets-square"];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -107,14 +107,37 @@
 -(void)onImageChanged: (NSNotification *)notification
 {
     NSString *imageName = [notification object];
-    [self.skadi setCanvasImageNamed:imageName];
+    if ([imageName isEqualToString:@"Rect1"])
+    {
+          [self.skadi setCanvasImageNamed:@"12rockets-rect1"];
+        
+    }else if ([imageName isEqualToString:@"Rect2"]) {
+        
+        [self.skadi setCanvasImageNamed:@"12rockets-rect2"];
+        
+    }else if ([imageName isEqualToString:@"Square"])
+    {
+        [self.skadi setCanvasImageNamed:@"12rockets-square"];
+    }
+
 }
 -(void)onAssetsChanged: (NSNotification *)notification
 {
     NSString *assetsName = [notification object];
-    //change assets
+    
+    if ([assetsName isEqualToString:@"Blue"])
+    {
+        [self.skadi setAssetsWithNameForConfirm:@"confirm-blue" forRotation:@"rotate-blue" forScaling:@"scale-blue" andForDeletion:@"delete-blue"];
+        
+    }else if ([assetsName isEqualToString:@"Yellow"]) {
+        
+        [self.skadi setAssetsWithNameForConfirm:@"confirm-yellow" forRotation:@"rotate-yellow" forScaling:@"scale-yellow" andForDeletion:@"delete-yellow"];
+        
+    }else if ([assetsName isEqualToString:@"Red"])
+    {
+        [self.skadi setAssetsWithNameForConfirm:@"confirm-red" forRotation:@"rotate-red" forScaling:@"scale-red" andForDeletion:@"delete-red"];
+    }
 }
-
 - (void)skadiControlDidSelect:(id)sender
 {
     NSLog(@"control selected");
@@ -130,7 +153,14 @@
 
 - (void)skadiControlDidScale:(id)sender
 {
-    NSLog(@"control scale: %f", self.skadi.scale);
+   // NSLog(@"control scale: %f", self.skadi.transformScale);
+    for (PagesContents *pVC in self.viewControllerArray)
+    {
+        if ([pVC.restorationIdentifier isEqualToString:@"ScaleVC"])
+        {
+            [pVC.scaleSlider setValue:self.skadi.transformScale animated:YES];
+        }
+    }
 }
 
 - (void)skadiControlDidRotate:(id)sender
