@@ -133,10 +133,8 @@
         
         self.initial = YES;
         
-        self.maxTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(self.frame.size.width, self.frame.size.height)]; //2*self.frame.size.width;
-        self.minTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(CONTROL_WIDTH/2, CONTROL_HEIGHT/2)];    //CONTROL_WIDTH;
-        //self.maxTransformScale = 2* self.frame.size.width;
-        //self.minTransformScale = CONTROL_WIDTH;
+        self.maxTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(self.frame.size.width, self.frame.size.height)];
+        self.minTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(CONTROL_WIDTH/2, CONTROL_HEIGHT/2)];
         self.transformDistance = [self distanceFrom:self.center to: self.scalingControlStartPoint];
         self.transformScale =(self.transformDistance - self.minTransformDistance)/(self.maxTransformDistance - self.minTransformDistance);
         _scale = 1;
@@ -146,7 +144,7 @@
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
-        
+        self.controlCenter = pos;
         //rotation
         CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];
         CGFloat y = fabs(self.center.y - self.rotationControl.center.y);
@@ -463,8 +461,8 @@
     CGPoint checkPoint = [gestureRecognizer locationInView:self.superview];
     CGPoint translation = [gestureRecognizer translationInView:self.superview];
     
-    CGFloat xTranslation = translation.x + self.translation.x;
-    CGFloat yTranslation = translation.y + self.translation.y;
+    CGFloat xTranslation = translation.x + self.translation.x; //checkPoint.x-self.center.x;
+    CGFloat yTranslation = translation.y + self.translation.y; //checkPoint.y-self.center.y;
     
     if([self outOfBounds:checkPoint]){
         xTranslation = self.validXTranslation;
@@ -481,13 +479,14 @@
     transform = CGAffineTransformRotate(transform, self.rotationAngle);
     self.transform = transform;
     
-    [self.delegate skadiControlDidTranslate:self];
+    self.controlCenter = CGPointMake(checkPoint.x, checkPoint.y);
     
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
         self.translation = CGPointMake(xTranslation,
                                        yTranslation);
-
     }
+
+    [self.delegate skadiControlDidTranslate:self];
 }
 - (void)setHiddenForControls:(BOOL)hidden
 {
@@ -628,6 +627,7 @@
     transform = CGAffineTransformRotate(transform, self.rotationAngle);
     self.transform = transform;
     self.center = CGPointMake(centerX, self.center.y);
+    self.controlCenter = CGPointMake(centerX, self.controlCenter.y);
 }
 -(void)setYCenter: (float)centerY
 {
@@ -650,6 +650,7 @@
     transform = CGAffineTransformRotate(transform, self.rotationAngle);
     self.transform = transform;
     self.center = CGPointMake(self.center.x, centerY);
+    self.controlCenter= CGPointMake(self.controlCenter.x, centerY);
 }
 
 @end

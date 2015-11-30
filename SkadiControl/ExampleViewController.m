@@ -39,9 +39,7 @@
     [self addChildViewController:_pageViewController];
     [self.viewForControls addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
-    
-    //TODO: change superview to self.skadiView
-    self.skadi = [[SkadiControl alloc] initWithsuperview:self.view controlsDelegate:self imageNamed:@"12rockets-square"];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -52,7 +50,7 @@
     float yCenter = self.skadiView.frame.origin.y;
     float xRange = self.skadiView.frame.size.width;
     float yRange = self.skadiView.frame.size.height;
-    float initialScale = self.skadi.scale;
+    float initialScale = self.skadi.transformScale;
     float initialRotation = self.skadi.rotationAngle;
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
@@ -64,6 +62,7 @@
     [dict setObject:[NSNumber numberWithFloat:initialRotation] forKey:@"rotation"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_INITIAL_DATA object:dict];
+    self.skadi = [[SkadiControl alloc] initWithsuperview:self.skadiView controlsDelegate:self imageNamed:@"12rockets-square"];
 }
 
 -(void)notifications
@@ -156,13 +155,18 @@
 }
 - (void)skadiControlDidTranslate:(id)sender
 {
-    NSLog(@"control moved: %f, %f", self.skadi.center.x, self.skadi.center.y);
-    NSLog(@"control width and height: %f %f", self.skadi.frame.size.width, self.skadi.frame.size.height);
+    for (PagesContents *pVC in self.viewControllerArray)
+    {
+        if ([pVC.restorationIdentifier isEqualToString:@"CenterVC"])
+        {
+            [pVC.centerXSlider setValue: self.skadi.controlCenter.x animated:YES];
+            [pVC.centerYSlider setValue: self.skadi.controlCenter.y animated:YES];
+        }
+    }
 }
 
 - (void)skadiControlDidScale:(id)sender
 {
-   // NSLog(@"control scale: %f", self.skadi.transformScale);
     for (PagesContents *pVC in self.viewControllerArray)
     {
         if ([pVC.restorationIdentifier isEqualToString:@"ScaleVC"])

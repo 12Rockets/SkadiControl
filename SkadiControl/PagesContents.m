@@ -62,6 +62,7 @@ float rotation;
     
     [self.scaleSlider setValue:scale];
     [self.rotationSlider setValue:rotation];
+    
 }
 
 - (IBAction)onScaleChanged:(id)sender {

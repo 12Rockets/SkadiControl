@@ -28,6 +28,7 @@
 @property(nonatomic) CGFloat scale;
 @property(nonatomic) CGFloat rotationAngle;
 @property(nonatomic) CGFloat transformScale;
+@property(nonatomic) CGPoint controlCenter;
 
 -(id)initWithsuperview:(UIView *)superview
   controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
