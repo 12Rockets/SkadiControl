@@ -9,15 +9,17 @@
 #import "ExampleViewController.h"
 #import "SkadiControl.h"
 #import "Notifications.h"
-#import "PagesContents.h"
+#import "ToolbarManager.h"
 
-@interface ExampleViewController() <SkadiControlDelegate>
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-@property (nonatomic, strong) NSMutableArray *viewControllerNames;
-@property (weak, nonatomic) IBOutlet UIView *viewForControls;
+
+@interface ExampleViewController() <SkadiControlDelegate, MoveProtocol, RotateProtocol, ResizeProtocol, CanvasProtocol, ControlsProtocol>
+
+@property (nonatomic, strong)NSMutableArray *skadiControls;
+
 @property (weak, nonatomic) IBOutlet UIView *skadiView;
 
-@property (strong, nonatomic) SkadiControl *skadi;
 @end
 
 
@@ -27,234 +29,158 @@
 {
     [super viewDidLoad];
     
-    self.viewControllerNames = [NSMutableArray arrayWithObjects: @"ImageVC", @"ScaleVC", @"RotationVC",@"CenterVC", @"SetVC", nil];
-    
-    self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageVC"];
-    self.pageViewController.dataSource = self;
-    
-    [self loadPageControllers];
-   [self.pageViewController setViewControllers:@[[self.viewControllerArray objectAtIndex:0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-    self.pageViewController.view.frame = self.viewForControls.bounds;
-    [self addChildViewController:_pageViewController];
-    [self.viewForControls addSubview:_pageViewController.view];
-    [self.pageViewController didMoveToParentViewController:self];
-
+    [ToolbarManager manager].delegate = self;
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (IBAction)addSkadi:(id)sender
 {
-    [self notifications];
-    
-    float xCenter = self.skadiView.frame.origin.x;
-    float yCenter = self.skadiView.frame.origin.y;
-    float xRange = self.skadiView.frame.size.width;
-    float yRange = self.skadiView.frame.size.height;
-    float initialScale = self.skadi.transformScale;
-    float initialRotation = self.skadi.rotationAngle;
-    
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-    [dict setObject:[NSNumber numberWithFloat:xCenter] forKey:@"xCenter"];
-    [dict setObject:[NSNumber numberWithFloat:yCenter] forKey:@"yCenter"];
-    [dict setObject:[NSNumber numberWithFloat:xRange] forKey:@"xRange"];
-    [dict setObject:[NSNumber numberWithFloat:yRange] forKey:@"yRange"];
-    [dict setObject:[NSNumber numberWithFloat:initialScale] forKey:@"scale"];
-    [dict setObject:[NSNumber numberWithFloat:initialRotation] forKey:@"rotation"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_INITIAL_DATA object:dict];
-    self.skadi = [[SkadiControl alloc] initWithsuperview:self.skadiView controlsDelegate:self imageNamed:@"12rockets-square"];
+    [self.skadiControls addObject:[[SkadiControl alloc] initWithsuperview:self.skadiView controlsDelegate:self imageNamed:@"12rockets-square"]];
 }
 
--(void)notifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onScaleChanged:) name:NOTIFICATION_ON_SCALE_CHANGED
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onRotationChanged:) name:NOTIFICATION_ON_ROTATION_CHANGED
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onCenterXChanged:) name:NOTIFICATION_ON_X_CENTER_CHANGED
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onCenterYChanged:) name:NOTIFICATION_ON_Y_CENTER_CHANGED
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onImageChanged:) name:NOTIFICATION_ON_IMAGE_CHANGED
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onAssetsChanged:) name:NOTIFICATION_ON_ASSETS_CHANGED
-                                               object:nil];
-}
--(void)onScaleChanged: (NSNotification *)notification
-{
-    float scale = [[notification object] floatValue];
-    [self.skadi setScale:scale];
+#pragma mark - Toolbar Delegate Methods
 
-}
--(void)onRotationChanged: (NSNotification *)notification
+- (void)xMoveSliderChanged:(CGFloat)value
 {
-    float rotation = [[notification object] floatValue];
-    [self.skadi setRotationAngle:rotation];
+    SkadiControl *control = [self selectedSkadiControl];
+    [control setControlCenter:CGPointMake(value, control.controlCenter.y)];
 }
--(void)onCenterXChanged: (NSNotification *)notification
-{
-    float centerX = [[notification object] floatValue];
-    [self.skadi setXCenter:centerX];
-}
--(void)onCenterYChanged: (NSNotification *)notification
-{
-    float centerY = [[notification object] floatValue];
-    [self.skadi setYCenter:centerY];
-}
--(void)onImageChanged: (NSNotification *)notification
-{
-    NSString *imageName = [notification object];
-    if ([imageName isEqualToString:@"Rect1"])
-    {
-          [self.skadi setCanvasImageNamed:@"12rockets-rect1"];
-        
-    }else if ([imageName isEqualToString:@"Rect2"]) {
-        
-        [self.skadi setCanvasImageNamed:@"12rockets-rect2"];
-        
-    }else if ([imageName isEqualToString:@"Square"])
-    {
-        [self.skadi setCanvasImageNamed:@"12rockets-square"];
-    }
 
-}
--(void)onAssetsChanged: (NSNotification *)notification
+- (void)yMoveSliderChanged:(CGFloat)value
 {
-    NSString *assetsName = [notification object];
+    SkadiControl *control = [self selectedSkadiControl];
+    [control setControlCenter:CGPointMake(control.controlCenter.x, value)];
+}
+
+- (void)rotationSliderChanged:(CGFloat)value
+{
+    [[self selectedSkadiControl] setRotationAngle:value];
+}
+
+- (void)resizeSliderChanged:(CGFloat)value
+{
+    [[self selectedSkadiControl] setScale:value];
+}
+
+- (void)canvasViewChanged:(UIView *)view
+{
+    SkadiControl *control = [self selectedSkadiControl];
     
-    if ([assetsName isEqualToString:@"Green"])
-    {
-        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-green" forRotation:@"skadi-rotate-green" forScaling:@"skadi-scale-green" andForDeletion:@"skadi-delete-green"];;
-        
-    }else if ([assetsName isEqualToString:@"Default"]) {
-        
-        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-default" forRotation:@"skadi-rotate-default" forScaling:@"skadi-scale-default" andForDeletion:@"skadi-delete-default"];
-        
-    }else if ([assetsName isEqualToString:@"Purple"])
-    {
-        [self.skadi setAssetsWithNameForConfirm:@"skadi-confirm-purple" forRotation:@"skadi-rotate-purple" forScaling:@"skadi-scale-purple" andForDeletion:@"skadi-delete-purple"];
-    }
+    [control setCanvasView:view];
 }
+
+- (void)controlsChangedConfirm:(NSString *)confirm
+                   forRotation:(NSString *)rotation
+                    forScaling:(NSString *)scaling
+                andForDeletion:(NSString *)deletion
+{
+    SkadiControl *control = [self selectedSkadiControl];
+    [control setAssetsWithNameForConfirm:confirm forRotation:rotation forScaling:scaling andForDeletion:deletion];;
+}
+
+#pragma mark - SkadiControl Delegate Methods
+
 - (void)skadiControlDidSelect:(id)sender
 {
-    NSLog(@"control selected");
+    [self deselectAllOtherControlsExcept:sender];
+    SkadiControl *control = (SkadiControl *)sender;
+    
+    [[ToolbarManager manager].moveVC.xMoveLabel setText:[NSString stringWithFormat:@"%d", (int)control.controlCenter.x]];
+    [[ToolbarManager manager].moveVC.yMoveLabel setText:[NSString stringWithFormat:@"%d", (int)control.controlCenter.y]];
+    
+    [[ToolbarManager manager].moveVC.xMoveSlider setMaximumValue:self.skadiView.frame.size.width];
+    [[ToolbarManager manager].moveVC.xMoveSlider setMinimumValue:0.0];
+    [[ToolbarManager manager].moveVC.xMoveSlider setValue:control.controlCenter.x animated:YES];
+    [[ToolbarManager manager].moveVC.yMoveSlider setMaximumValue:self.skadiView.frame.size.height];
+    [[ToolbarManager manager].moveVC.yMoveSlider setMinimumValue:0.0];
+    [[ToolbarManager manager].moveVC.yMoveSlider setValue:control.controlCenter.y animated:YES];
+    
+    [[ToolbarManager manager].resizeVC.resizeSlider setMaximumValue:control.maxScale];
+    [[ToolbarManager manager].resizeVC.resizeSlider setMinimumValue:control.minScale];
+    [[ToolbarManager manager].resizeVC.resizeLabel setText:[NSString stringWithFormat:@"%d%%", (int)(control.scale*100)]];
+    [[ToolbarManager manager].resizeVC.resizeSlider setValue:control.scale animated:YES];
+
+    [[ToolbarManager manager].rotateVC.rotationLabel setText:[NSString stringWithFormat:@"%d°", (int)RADIANS_TO_DEGREES(control.rotationAngle)]];
+    
+    [[ToolbarManager manager].rotateVC.rotationSlider setValue:control.rotationAngle animated:YES];
 }
+
 - (void)skadiControlWillRemove:(id)sender
 {
-    NSLog(@"control removed");
+    SkadiControl *control = (SkadiControl *)sender;
+    [self.skadiControls removeObject:control];
+
+    if ([control isComponentSelected])
+    {
+        SkadiControl *newSelection = (SkadiControl*)[self.skadiControls firstObject];
+        [newSelection setSelected:YES];
+    }
 }
+
 - (void)skadiControlDidConfirm:(id)sender
 {
     NSLog(@"control is confirmed");
 }
+
 - (void)skadiControlDidTranslate:(id)sender
 {
-    for (PagesContents *pVC in self.viewControllerArray)
-    {
-        if ([pVC.restorationIdentifier isEqualToString:@"CenterVC"])
-        {
-            [pVC.centerXSlider setValue: self.skadi.controlCenter.x animated:YES];
-            [pVC.centerYSlider setValue: self.skadi.controlCenter.y animated:YES];
-        }
-    }
+    SkadiControl *control = (SkadiControl *)sender;
+    [[ToolbarManager manager].moveVC.xMoveLabel setText:[NSString stringWithFormat:@"%d", (int)control.controlCenter.x]];
+    [[ToolbarManager manager].moveVC.yMoveLabel setText:[NSString stringWithFormat:@"%d", (int)control.controlCenter.y]];
+    
+    [[ToolbarManager manager].moveVC.xMoveSlider setValue:control.controlCenter.x animated:YES];
+    [[ToolbarManager manager].moveVC.yMoveSlider setValue:control.controlCenter.y animated:YES];
 }
 
 - (void)skadiControlDidScale:(id)sender
 {
-    for (PagesContents *pVC in self.viewControllerArray)
-    {
-        if ([pVC.restorationIdentifier isEqualToString:@"ScaleVC"])
-        {
-            [pVC.scaleSlider setValue:self.skadi.transformScale animated:YES];
-        }
-    }
+    SkadiControl *control = (SkadiControl *)sender;
+    
+    [[ToolbarManager manager].resizeVC.resizeLabel setText:[NSString stringWithFormat:@"%d%%", (int)(control.scale*100)]];
+    
+    [[ToolbarManager manager].resizeVC.resizeSlider setValue:control.scale animated:YES];
 }
 
 - (void)skadiControlDidRotate:(id)sender
 {
-    NSLog(@"control rotate: %f", self.skadi.rotationAngle);
-    for (PagesContents *pVC in self.viewControllerArray)
+    SkadiControl *control = (SkadiControl *)sender;
+    
+    [[ToolbarManager manager].rotateVC.rotationLabel setText:[NSString stringWithFormat:@"%d°", (int)RADIANS_TO_DEGREES(control.rotationAngle)]];
+    
+    [[ToolbarManager manager].rotateVC.rotationSlider setValue:control.rotationAngle animated:YES];
+}
+
+#pragma mark - Utils
+
+- (NSMutableArray *)skadiControls
+{
+    if (!_skadiControls)
     {
-        if ([pVC.restorationIdentifier isEqualToString:@"RotationVC"])
+        _skadiControls = [[NSMutableArray alloc] init];
+    }
+    return _skadiControls;
+}
+
+- (SkadiControl *)selectedSkadiControl
+{
+    for (SkadiControl *sc in self.skadiControls)
+    {
+        if ([sc isComponentSelected])
         {
-            [pVC.rotationSlider setValue:self.skadi.rotationAngle animated:YES];
+            return sc;
         }
     }
-    
+    return nil;
 }
 
-- (NSMutableArray *)viewControllerArray
+- (void)deselectAllOtherControlsExcept:(id)sender
 {
-    if (!_viewControllerArray)
+    for (SkadiControl *sc in self.skadiControls)
     {
-        _viewControllerArray = [[NSMutableArray alloc] init];
-    }
-    return _viewControllerArray;
-}
-
--(void)loadPageControllers
-{
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
-    for (NSString *name in self.viewControllerNames) {
-        
-        PagesContents *vc = [story instantiateViewControllerWithIdentifier:name];
-        [self.viewControllerArray addObject:vc];
-    }
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexOfController:viewController];
-    
-    if ((index == NSNotFound) || (index == 0)) {
-        return nil;
-    }
-    
-    index--;
-    return [self.viewControllerArray objectAtIndex:index];
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexOfController:viewController];
-    
-    if (index == NSNotFound) {
-        return nil;
-    }
-    index++;
-    
-    if (index == [self.viewControllerArray count]) {
-        return nil;
-    }
-    return [self.viewControllerArray objectAtIndex:index];
-}
-
--(NSInteger)indexOfController:(UIViewController *)viewController
-{
-    for (int i = 0; i<[self.viewControllerArray count]; i++) {
-        if (viewController == [self.viewControllerArray objectAtIndex:i])
+        if ([sc isComponentSelected] && sender != sc)
         {
-            return i;
+            [sc setSelected:NO];
         }
     }
-    return NSNotFound;
-}
-
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-{
-    return [self.viewControllerNames count];
-}
-
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
-{
-    return 0;
 }
 
 @end

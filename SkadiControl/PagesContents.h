@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
+#import "SkadiControl.h"
 
 @interface PagesContents : UIViewController
+
+@property (nonatomic, strong)SkadiControl *selectedControl;
+
 //Page1
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *imagesForContainer;
 

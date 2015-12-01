@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E3B1BFE19B900EB8550 /* main.m */; };
 		7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */; };
-		7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F3E411BFE19B900EB8550 /* DevViewController.m */; };
 		7A1F3E451BFE19B900EB8550 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E431BFE19B900EB8550 /* Main.storyboard */; };
 		7A1F3E471BFE19B900EB8550 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E461BFE19B900EB8550 /* Assets.xcassets */; };
 		7A1F3E4A1BFE19B900EB8550 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F3E481BFE19B900EB8550 /* LaunchScreen.storyboard */; };
@@ -20,6 +19,12 @@
 		D638B0431C046DD800FC1B9A /* SkadiControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F3A1C033CD7001B253C /* SkadiControl.m */; };
 		D638B0441C046DD800FC1B9A /* WControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B6F351C033AA6001B253C /* WControlButton.m */; };
 		D638B0471C046EA500FC1B9A /* PagesContents.m in Sources */ = {isa = PBXBuildFile; fileRef = D638B0461C046EA500FC1B9A /* PagesContents.m */; };
+		D66B13FC1C0DD8D200BCCD5E /* ToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D66B13FB1C0DD8D200BCCD5E /* ToolbarManager.m */; };
+		D687386D1C0DAD9A00C2573D /* MoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D687386C1C0DAD9A00C2573D /* MoveViewController.m */; };
+		D68738701C0DADA600C2573D /* RotateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D687386F1C0DADA600C2573D /* RotateViewController.m */; };
+		D68738731C0DADB300C2573D /* ResizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738721C0DADB300C2573D /* ResizeViewController.m */; };
+		D68738761C0DADC000C2573D /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738751C0DADC000C2573D /* CanvasViewController.m */; };
+		D68738791C0DADCB00C2573D /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738781C0DADCB00C2573D /* ControlsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +49,6 @@
 		7A1F3E3B1BFE19B900EB8550 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A1F3E3D1BFE19B900EB8550 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7A1F3E401BFE19B900EB8550 /* DevViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevViewController.h; sourceTree = "<group>"; };
-		7A1F3E411BFE19B900EB8550 /* DevViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevViewController.m; sourceTree = "<group>"; };
 		7A1F3E441BFE19B900EB8550 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A1F3E461BFE19B900EB8550 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A1F3E491BFE19B900EB8550 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,6 +70,18 @@
 		D61D2A241BFF567D0038695E /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleViewController.m; sourceTree = "<group>"; };
 		D638B0451C046EA500FC1B9A /* PagesContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagesContents.h; sourceTree = "<group>"; };
 		D638B0461C046EA500FC1B9A /* PagesContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagesContents.m; sourceTree = "<group>"; };
+		D66B13FA1C0DD8D200BCCD5E /* ToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolbarManager.h; sourceTree = "<group>"; };
+		D66B13FB1C0DD8D200BCCD5E /* ToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarManager.m; sourceTree = "<group>"; };
+		D687386B1C0DAD9A00C2573D /* MoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveViewController.h; sourceTree = "<group>"; };
+		D687386C1C0DAD9A00C2573D /* MoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveViewController.m; sourceTree = "<group>"; };
+		D687386E1C0DADA600C2573D /* RotateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateViewController.h; sourceTree = "<group>"; };
+		D687386F1C0DADA600C2573D /* RotateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateViewController.m; sourceTree = "<group>"; };
+		D68738711C0DADB300C2573D /* ResizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeViewController.h; sourceTree = "<group>"; };
+		D68738721C0DADB300C2573D /* ResizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeViewController.m; sourceTree = "<group>"; };
+		D68738741C0DADC000C2573D /* CanvasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasViewController.h; sourceTree = "<group>"; };
+		D68738751C0DADC000C2573D /* CanvasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
+		D68738771C0DADCB00C2573D /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
+		D68738781C0DADCB00C2573D /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +135,6 @@
 				D61D2A2A1BFF56CD0038695E /* Example App */,
 				7A1F3E3D1BFE19B900EB8550 /* AppDelegate.h */,
 				7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */,
-				7A1F3E401BFE19B900EB8550 /* DevViewController.h */,
-				7A1F3E411BFE19B900EB8550 /* DevViewController.m */,
 				D60B6F371C033CD7001B253C /* SkadiCanvas.h */,
 				D60B6F381C033CD7001B253C /* SkadiCanvas.m */,
 				D60B6F391C033CD7001B253C /* SkadiControl.h */,
@@ -178,6 +191,16 @@
 				D638B0451C046EA500FC1B9A /* PagesContents.h */,
 				D638B0461C046EA500FC1B9A /* PagesContents.m */,
 				7AD5C2101C048BB000F8E9F9 /* Notifications.h */,
+				D687386B1C0DAD9A00C2573D /* MoveViewController.h */,
+				D687386C1C0DAD9A00C2573D /* MoveViewController.m */,
+				D687386E1C0DADA600C2573D /* RotateViewController.h */,
+				D687386F1C0DADA600C2573D /* RotateViewController.m */,
+				D68738711C0DADB300C2573D /* ResizeViewController.h */,
+				D68738721C0DADB300C2573D /* ResizeViewController.m */,
+				D68738741C0DADC000C2573D /* CanvasViewController.h */,
+				D68738751C0DADC000C2573D /* CanvasViewController.m */,
+				D68738771C0DADCB00C2573D /* ControlsViewController.h */,
+				D68738781C0DADCB00C2573D /* ControlsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -185,6 +208,8 @@
 		D61D2A281BFF56B90038695E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D66B13FA1C0DD8D200BCCD5E /* ToolbarManager.h */,
+				D66B13FB1C0DD8D200BCCD5E /* ToolbarManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -330,11 +355,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D638B0471C046EA500FC1B9A /* PagesContents.m in Sources */,
+				D68738761C0DADC000C2573D /* CanvasViewController.m in Sources */,
+				D68738791C0DADCB00C2573D /* ControlsViewController.m in Sources */,
 				D638B0421C046DD800FC1B9A /* SkadiCanvas.m in Sources */,
+				D66B13FC1C0DD8D200BCCD5E /* ToolbarManager.m in Sources */,
 				D638B0431C046DD800FC1B9A /* SkadiControl.m in Sources */,
+				D68738701C0DADA600C2573D /* RotateViewController.m in Sources */,
 				D638B0441C046DD800FC1B9A /* WControlButton.m in Sources */,
-				7A1F3E421BFE19B900EB8550 /* DevViewController.m in Sources */,
 				7A1F3E3F1BFE19B900EB8550 /* AppDelegate.m in Sources */,
+				D68738731C0DADB300C2573D /* ResizeViewController.m in Sources */,
+				D687386D1C0DAD9A00C2573D /* MoveViewController.m in Sources */,
 				D61D2A251BFF567D0038695E /* ExampleViewController.m in Sources */,
 				7A1F3E3C1BFE19B900EB8550 /* main.m in Sources */,
 			);

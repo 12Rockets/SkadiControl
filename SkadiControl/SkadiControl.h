@@ -10,6 +10,9 @@
 #import "WControlButton.h"
 #import "SkadiCanvas.h"
 
+#define MIN_ROTATION 0.0
+#define MAX_ROTATION M_PI*2
+
 @protocol SkadiControlDelegate
 
 - (void)skadiControlDidSelect:(id)sender;
@@ -25,10 +28,15 @@
 
 @property (nonatomic,weak) id<SkadiControlDelegate> delegate;
 
+@property(nonatomic) CGFloat minScale;
+@property(nonatomic) CGFloat maxScale;
+
 @property(nonatomic) CGFloat scale;
 @property(nonatomic) CGFloat rotationAngle;
-@property(nonatomic) CGFloat transformScale;
 @property(nonatomic) CGPoint controlCenter;
+
+
+@property(nonatomic, getter=isComponentSelected) BOOL selected;
 
 -(id)initWithsuperview:(UIView *)superview
   controlsDelegate:(id<SkadiControlDelegate>)controlsDelegate
@@ -61,8 +69,6 @@
                  view:(UIView*)canvasView;
 
 
-- (void)controlSelected:(BOOL)selected;
-
 -(void)setAssetsWithNameForConfirm:(NSString *)confirm
                        forRotation:(NSString *)rotation
                         forScaling:(NSString *)scaling
@@ -71,8 +77,7 @@
 - (void)setCanvasImageNamed:(NSString *)imageName;
 - (void)setCanvasImage:(UIImage *)image;
 - (void)setCanvasView:(UIView *)view;
-- (void)setXCenter: (float)centerX;
-- (void)setYCenter: (float)centerY;
+
 
 @end
 

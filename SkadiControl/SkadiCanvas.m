@@ -22,7 +22,7 @@
     
     if (self) {
         self.opaque = NO;
-        self.contentMode = UIViewContentModeScaleAspectFit;
+        self.contentMode = UIViewContentModeScaleAspectFill;
         
         _canvas = view;
         [self addSubview:_canvas];
@@ -42,10 +42,12 @@
         return;
     }
     
-    if (selected) {
+    if (selected)
+    {
         [self setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.222]];
     }
-    else{
+    else
+    {
         [self setBackgroundColor:[UIColor clearColor]];
     }
     _selected = selected;
@@ -69,7 +71,10 @@
 
 - (void)setCanvasView:(UIView*)view
 {
+    [_canvas removeFromSuperview];
     _canvas = view;
+    [self addSubview:_canvas];
+    self.frame = view.frame;
 }
 
 

@@ -14,10 +14,6 @@
 
 #define CONTROL_WIDTH   (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
 #define CONTROL_HEIGHT  (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
-//#define LABEL_SCALE     (USING_IPAD ? IPAD_SCALE*0.4  : 0.8)
-//#define MAX_SCALE       (USING_IPAD ? IPAD_SCALE*1.0  : 5.2)
-//#define MIN_SCALE       (USING_IPAD ? IPAD_SCALE*0.2  : 0.2)
-
 
 @interface SkadiControl()
 @property(nonatomic,strong) WControlButton *scalingControl;
@@ -30,8 +26,6 @@
 @property(nonatomic) CGFloat validXTranslation;
 
 @property(nonatomic) CGFloat startRotationAngle;
-@property(nonatomic) CGFloat startScale;
-@property(nonatomic) CGPoint startPoint;
 
 @property(nonatomic) CGPoint translation;
 @property(nonatomic) CGPoint scalingControlStartPoint;
@@ -46,11 +40,6 @@
 @property(nonatomic, strong) UITapGestureRecognizer *deletionTapGestureRecognizer;
 @property(nonatomic, strong) UITapGestureRecognizer *confirmTapGestureRecognizer;
 
-@property(nonatomic) CGFloat minTransformDistance;
-@property(nonatomic) CGFloat maxTransformDistance;
-@property(nonatomic) CGFloat transformDistance;
-@property(nonatomic) CGFloat minScale;
-@property(nonatomic) CGFloat maxScale;
 
 @end
 
@@ -131,20 +120,31 @@
         [self addSubview:self.rotationControl];
         [self addSubview:self.scalingControl];
         
-        self.initial = YES;
+        //size
+        CGSize minSize = CGSizeMake(CONTROL_WIDTH, CONTROL_HEIGHT);
+        CGSize maxSize = CGSizeMake(superview.frame.size.width, superview.frame.size.height);
         
-        self.maxTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(self.frame.size.width, self.frame.size.height)];
-        self.minTransformDistance = [self distanceFrom:CGPointMake(0,0) to:CGPointMake(CONTROL_WIDTH/2, CONTROL_HEIGHT/2)];
-        self.transformDistance = [self distanceFrom:self.center to: self.scalingControlStartPoint];
-        self.transformScale =(self.transformDistance - self.minTransformDistance)/(self.maxTransformDistance - self.minTransformDistance);
-        _scale = 1;
-        self.minScale = self.scale * self.minTransformDistance/self.transformDistance;
-        self.maxScale = self.scale * self.maxTransformDistance/self.transformDistance;
+        _scale = 1.0;
+        
+        if (self.frame.size.width >= self.frame.size.width)
+        {
+            _maxScale = maxSize.width/self.frame.size.width;
+            _minScale = minSize.height/self.frame.size.height;
+        }
+        else
+        {
+            _maxScale = maxSize.height/self.frame.size.height;
+            _minScale = minSize.width/self.frame.size.width;
+        }
+        
+        
+        self.initial = YES;
         
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
         self.controlCenter = pos;
+        
         //rotation
         CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];
         CGFloat y = fabs(self.center.y - self.rotationControl.center.y);
@@ -203,6 +203,7 @@
         
         self.userInteractionEnabled = YES;
         [superview addSubview:self];
+        [superview sendSubviewToBack:self];
         
         if(self.initial){
             [self restrictCenterPoint];
@@ -210,7 +211,7 @@
             self.initial = NO;
         }
         
-        [self controlSelected:YES];
+        self.selected = YES;
     }
     return self;
 }
@@ -276,13 +277,6 @@
     {
         CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
         CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
-        
-//        CGFloat startDistance = [self distanceFromPoint:center toPoint:self.rotationControlStartPoint];
-//        if(startDistance==0)
-//            return;
-//        
-//        float currentRotation = [self angleAgainstPoint:center withPoint:currentPoint withPoint:self.rotationControlStartPoint];
-//        
 
         CGFloat x = (center.x - currentPoint.x);
         CGFloat y = (center.y - currentPoint.y);
@@ -339,19 +333,6 @@
     }
 }
 
-//- (float)angleAgainstPoint:(CGPoint)C withPoint:(CGPoint)A withPoint:(CGPoint)B
-//{
-//    // cosine law
-//    float a = [self distanceFrom:B to:C];
-//    float b = [self distanceFrom:A to:C];
-//    float c = [self distanceFrom:A to:B];
-//    
-//    float cosine = (powf(a, 2.0) + powf(b, 2.0) - powf(c, 2.0))/(2*a*b);
-//    
-//
-//    return acosf(cosine);
-//}
-
 - (float)distanceFromPoint:(CGPoint)a toPoint:(CGPoint)b
 {
     CGFloat x = a.x - b.x;
@@ -375,16 +356,16 @@
         CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
         CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
         
-        float newTransformDistance = [self distanceFrom:currentPoint to:center];
+        CGFloat startDistance = [self distanceFrom:center to:self.scalingControlStartPoint];
+        CGFloat currentDistance = [self distanceFrom:center to:currentPoint];
+        if(startDistance==0)
+            return;
         
-        CGFloat newScale = self.scale * newTransformDistance/self.transformDistance;
-
+        CGFloat newScale = currentDistance/startDistance;
+        
         CGFloat scaleToPerform = MIN(self.maxScale, newScale);
         scaleToPerform = MAX(self.minScale, scaleToPerform);
         
-        self.transformDistance = MIN(newTransformDistance, self.maxTransformDistance);
-        self.transformDistance = MAX(self.transformDistance, self.minTransformDistance);
-
         
         transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
         transform = CGAffineTransformRotate(transform, self.rotationAngle);
@@ -399,7 +380,6 @@
         self.rotationControl.transform = controlTransform;
         self.deletionControl.transform = controlTransform;
         
-        self.transformScale = (self.transformDistance- self.minTransformDistance)/(self.maxTransformDistance - self.minTransformDistance);
         _scale = scaleToPerform;
         [self.delegate skadiControlDidScale:self];
 
@@ -409,7 +389,7 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    [self controlSelected:YES];
+    self.selected = YES;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
@@ -419,7 +399,7 @@
             CGPoint subPoint = [subview convertPoint:point fromView:self];
             UIView *result = [subview hitTest:subPoint withEvent:event];
             if (result != nil && self.userInteractionEnabled) {
-                [self controlSelected:YES];
+                self.selected = YES;
                 return result;
             }
         }
@@ -461,8 +441,8 @@
     CGPoint checkPoint = [gestureRecognizer locationInView:self.superview];
     CGPoint translation = [gestureRecognizer translationInView:self.superview];
     
-    CGFloat xTranslation = translation.x + self.translation.x; //checkPoint.x-self.center.x;
-    CGFloat yTranslation = translation.y + self.translation.y; //checkPoint.y-self.center.y;
+    CGFloat xTranslation = translation.x + self.translation.x;
+    CGFloat yTranslation = translation.y + self.translation.y;
     
     if([self outOfBounds:checkPoint]){
         xTranslation = self.validXTranslation;
@@ -479,14 +459,14 @@
     transform = CGAffineTransformRotate(transform, self.rotationAngle);
     self.transform = transform;
     
-    self.controlCenter = CGPointMake(checkPoint.x, checkPoint.y);
-    
+    _controlCenter = CGPointMake(checkPoint.x, checkPoint.y);
+    [self.delegate skadiControlDidTranslate:self];
+
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
-        self.translation = CGPointMake(xTranslation,
+        _translation = CGPointMake(xTranslation,
                                        yTranslation);
     }
 
-    [self.delegate skadiControlDidTranslate:self];
 }
 - (void)setHiddenForControls:(BOOL)hidden
 {
@@ -504,11 +484,11 @@
     [self.deletionControl setUserInteractionEnabled:enabled];
 }
 
-
-- (void)controlSelected:(BOOL)selected
+- (void)setSelected:(BOOL)selected
 {
-    self.canvas.selected = selected;
-
+    _selected = selected;
+    [self.canvas setSelected:selected];
+    
     [self setHiddenForControls:!selected];
     [self setUserInteractionEnabledForControls:selected];
     if (selected) {
@@ -520,17 +500,41 @@
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     [self.canvas setCanvasView:imageView];
+
+    [self updateFrames];
 }
 
 - (void)setCanvasImage:(UIImage *)image
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self.canvas setCanvasView:imageView];
+
+    [self updateFrames];
 }
 
 - (void)setCanvasView:(UIView *)view
 {
     [self.canvas setCanvasView:view];
+    [self updateFrames];
+
+}
+
+- (void)updateFrames
+{
+    CGRect frame = self.canvas.frame;
+    frame.origin = self.frame.origin;
+    self.frame = frame;
+    
+    self.confirmControl.frame = CGRectMake(-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT);
+    
+    self.rotationControl.frame = CGRectMake(-CONTROL_WIDTH/2, self.frame.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT);
+    
+    self.scalingControl.frame = CGRectMake(self.frame.size.width - CONTROL_WIDTH/2, self.frame.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT);
+    
+    self.deletionControl.frame = CGRectMake(self.frame.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT);
+
+    
+    [self setTransformWithScale:self.scale andRotation:self.rotationAngle andTranslation:self.controlCenter];
 }
 
 -(void)restrictCenterPoint
@@ -551,18 +555,20 @@
     self.defaultCenterPoint = CGPointMake(newXCord, newYCord);
 }
 
--(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation
+-(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation andTranslation:(CGPoint)position
 {
-// From outside
     
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
-    transform = CGAffineTransformScale(transform, scale, scale);
+    CGFloat scaleToPerform = MIN(self.maxScale, scale);
+    scaleToPerform = MAX(self.minScale, scaleToPerform);
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(position.x, position.y);
+    transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
     transform = CGAffineTransformRotate(transform, rotation);
     
     self.transform = transform;
     
-    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/self.scale, 1/self.scale);
-    controlTransform = CGAffineTransformRotate(controlTransform, -self.rotationAngle);
+    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scaleToPerform, 1/scaleToPerform);
+    controlTransform = CGAffineTransformRotate(controlTransform, -rotation);
     
     self.confirmControl.transform = controlTransform;
     self.scalingControl.transform = controlTransform;
@@ -581,7 +587,7 @@
 
 @synthesize scale = _scale;
 @synthesize rotationAngle = _rotationAngle;
-
+@synthesize controlCenter = _controlCenter;
 -(CGFloat)scale
 {
     return _scale;
@@ -592,65 +598,25 @@
     return _rotationAngle;
 }
 
+- (CGPoint)controlCenter
+{
+    return _controlCenter;
+}
+
 -(void)setScale:(CGFloat)newTransformScale
 {
-    float newTransformDistance = (self.maxTransformDistance - self.minTransformDistance) * newTransformScale + self.minTransformDistance;
-    _scale = _scale * newTransformDistance/self.transformDistance;
-    [self setTransformWithScale:_scale andRotation:self.rotationAngle];
-    self.transformDistance = newTransformDistance;
-    self.transformScale = newTransformScale;
-
+    _scale = newTransformScale;
+    [self setTransformWithScale:newTransformScale andRotation:self.rotationAngle andTranslation:self.translation];
 }
 -(void)setRotationAngle:(CGFloat)rotationAngle
 {
     _rotationAngle= rotationAngle;
-    [self setTransformWithScale:self.scale andRotation:rotationAngle];
-}
--(void)setXCenter: (float)centerX
-{
-    float number = centerX - self.center.x;
-    CGFloat xTranslation = number;
-    CGFloat yTranslation = 0;
-    
-    if([self outOfBounds:self.center]){
-        xTranslation = self.validXTranslation;
-        yTranslation = self.validYTranslation;
-    }
-    else{
-        self.validXTranslation = xTranslation;
-        self.validYTranslation = yTranslation;
-    }
-    
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(xTranslation, yTranslation);
-    
-    transform = CGAffineTransformScale(transform, self.scale, self.scale);
-    transform = CGAffineTransformRotate(transform, self.rotationAngle);
-    self.transform = transform;
-    self.center = CGPointMake(centerX, self.center.y);
-    self.controlCenter = CGPointMake(centerX, self.controlCenter.y);
-}
--(void)setYCenter: (float)centerY
-{
-    float number = centerY - self.center.y;
-    CGFloat xTranslation = 0;
-    CGFloat yTranslation = number;
-    
-    if([self outOfBounds:self.center]){
-        xTranslation = self.validXTranslation;
-        yTranslation = self.validYTranslation;
-    }
-    else{
-        self.validXTranslation = xTranslation;
-        self.validYTranslation = yTranslation;
-    }
-    
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(xTranslation, yTranslation);
-    
-    transform = CGAffineTransformScale(transform, self.scale, self.scale);
-    transform = CGAffineTransformRotate(transform, self.rotationAngle);
-    self.transform = transform;
-    self.center = CGPointMake(self.center.x, centerY);
-    self.controlCenter= CGPointMake(self.controlCenter.x, centerY);
+    [self setTransformWithScale:self.scale andRotation:rotationAngle andTranslation:self.translation];
 }
 
+- (void)setControlCenter:(CGPoint)controlCenter
+{
+    _controlCenter = controlCenter;
+    [self setTransformWithScale:self.scale andRotation:self.rotationAngle andTranslation:controlCenter];
+}
 @end

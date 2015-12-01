@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExampleViewController : UIViewController <UIPageViewControllerDataSource>
-
-@property (nonatomic, strong) UIPageViewController *pageViewController;
-@property (nonatomic, strong) NSMutableArray *viewControllerArray;
-
+@interface ExampleViewController : UIViewController
 
 
 @end

@@ -16,7 +16,4 @@
 #define NOTIFICATION_ON_IMAGE_CHANGED @"onImageChanged"
 #define NOTIFICATION_ON_ASSETS_CHANGED @"onAssetsChanged"
 
-
-#define NOTIFICATION_INITIAL_DATA @"initialData"
-
 #endif /* Notifications_h */

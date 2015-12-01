@@ -12,14 +12,14 @@
 
 @interface PagesContents ()
 
+
 @end
 
-float xCenter;
-float yCenter;
 float xRange;
 float yRange;
 float scale;
 float rotation;
+CGPoint position;
 
 @implementation PagesContents
 
@@ -27,9 +27,7 @@ float rotation;
 {
     [super viewDidLoad];
     [self setup];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setInitialData:) name:NOTIFICATION_INITIAL_DATA
-                                               object:nil];
+    [self setInitialData];
 }
 -(void)setup
 {
@@ -40,15 +38,14 @@ float rotation;
     [self.rotationSlider setMaximumValue:2*M_PI];
 
 }
-- (void)setInitialData:(NSNotification *)notification
+- (void)setInitialData
 {
-    
-    NSDictionary *dict = [notification object];
+    xRange = self.selectedControl.frame.size.width;
+    yRange = self.selectedControl.frame.size.height;
 
-    xRange =[[dict objectForKey:@"xRange"] floatValue];
-    yRange =[[dict objectForKey:@"yRange"] floatValue];
-    scale =[[dict objectForKey:@"scale"] floatValue];
-    rotation =[[dict objectForKey:@"rotation"] floatValue];
+    scale = self.selectedControl.scale;
+    rotation = self.selectedControl.rotationAngle;
+    position = self.selectedControl.controlCenter;
 }
 
 - (void)viewDidAppear:(BOOL)animated
