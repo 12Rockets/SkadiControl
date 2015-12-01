@@ -35,6 +35,8 @@
 @property(nonatomic) CGFloat rotationAngle;
 @property(nonatomic) CGPoint controlCenter;
 
+@property(nonatomic, strong)NSString *controlsThemeName;
+
 
 @property(nonatomic, getter=isComponentSelected) BOOL selected;
 

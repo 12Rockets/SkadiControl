@@ -208,66 +208,6 @@
             </objects>
             <point key="canvasLocation" x="1945.5" y="721.5"/>
         </scene>
-        <!--Canvas-->
-        <scene sceneID="mIV-Hg-F0E">
-            <objects>
-                <viewController title="Canvas" id="TIq-Xk-iaE" customClass="CanvasViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="S1d-uZ-wIY"/>
-                        <viewControllerLayoutGuide type="bottom" id="Dlt-5H-LYo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="p4S-U1-tja">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7O5-5v-t3k">
-                                <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
-                                <animations/>
-                            </pickerView>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="7O5-5v-t3k" secondAttribute="bottom" id="4b7-HE-tok"/>
-                            <constraint firstItem="7O5-5v-t3k" firstAttribute="top" secondItem="p4S-U1-tja" secondAttribute="top" id="V2f-Y7-RQx"/>
-                            <constraint firstAttribute="trailing" secondItem="7O5-5v-t3k" secondAttribute="trailing" id="eli-M5-c1o"/>
-                            <constraint firstItem="Dlt-5H-LYo" firstAttribute="top" secondItem="7O5-5v-t3k" secondAttribute="bottom" id="hSD-Nu-eLJ"/>
-                            <constraint firstItem="7O5-5v-t3k" firstAttribute="leading" secondItem="p4S-U1-tja" secondAttribute="leading" id="pxX-bo-K1s"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="7O5-5v-t3k"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="4b7-HE-tok"/>
-                                <exclude reference="V2f-Y7-RQx"/>
-                                <exclude reference="eli-M5-c1o"/>
-                                <exclude reference="pxX-bo-K1s"/>
-                                <exclude reference="hSD-Nu-eLJ"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="7O5-5v-t3k"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="4b7-HE-tok"/>
-                                <include reference="V2f-Y7-RQx"/>
-                                <include reference="eli-M5-c1o"/>
-                                <include reference="pxX-bo-K1s"/>
-                                <include reference="hSD-Nu-eLJ"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Canvas" image="canvas" id="Hd4-vd-xnt"/>
-                    <connections>
-                        <outlet property="canvasPicker" destination="7O5-5v-t3k" id="fBC-Aw-Guu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d9e-lg-crb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3927" y="721.5"/>
-        </scene>
         <!--Controls-->
         <scene sceneID="XAg-ba-pgL">
             <objects>
@@ -323,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glx-Tu-wW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4575" y="721.5"/>
+            <point key="canvasLocation" x="3936" y="721.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OuP-ri-duS">
@@ -339,7 +279,6 @@
                         <segue destination="HzM-qI-Bd2" kind="relationship" relationship="viewControllers" id="sCL-GY-6eL"/>
                         <segue destination="20e-Tv-KYC" kind="relationship" relationship="viewControllers" id="KsJ-xY-lh5"/>
                         <segue destination="BXw-UU-ZpX" kind="relationship" relationship="viewControllers" id="TxM-c9-hi2"/>
-                        <segue destination="TIq-Xk-iaE" kind="relationship" relationship="viewControllers" id="hSX-rK-zjJ"/>
                         <segue destination="FV8-BS-hiI" kind="relationship" relationship="viewControllers" id="Tkd-m9-rAQ"/>
                     </connections>
                 </tabBarController>
@@ -604,7 +543,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="canvas" width="22" height="22"/>
         <image name="controls" width="22" height="22"/>
         <image name="move" width="22" height="22"/>
         <image name="resize" width="22" height="22"/>

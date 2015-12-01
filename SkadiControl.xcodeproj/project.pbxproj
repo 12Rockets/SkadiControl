@@ -23,7 +23,6 @@
 		D687386D1C0DAD9A00C2573D /* MoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D687386C1C0DAD9A00C2573D /* MoveViewController.m */; };
 		D68738701C0DADA600C2573D /* RotateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D687386F1C0DADA600C2573D /* RotateViewController.m */; };
 		D68738731C0DADB300C2573D /* ResizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738721C0DADB300C2573D /* ResizeViewController.m */; };
-		D68738761C0DADC000C2573D /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738751C0DADC000C2573D /* CanvasViewController.m */; };
 		D68738791C0DADCB00C2573D /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68738781C0DADCB00C2573D /* ControlsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +59,7 @@
 		7A1F3E5F1BFE19BA00EB8550 /* SkadiControlUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkadiControlUITests.m; sourceTree = "<group>"; };
 		7A1F3E611BFE19BA00EB8550 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AD5C2101C048BB000F8E9F9 /* Notifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		D60021411C0E4CC800838C37 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		D60B6F341C033AA6001B253C /* WControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WControlButton.h; sourceTree = "<group>"; };
 		D60B6F351C033AA6001B253C /* WControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WControlButton.m; sourceTree = "<group>"; };
 		D60B6F371C033CD7001B253C /* SkadiCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiCanvas.h; sourceTree = "<group>"; };
@@ -78,8 +78,6 @@
 		D687386F1C0DADA600C2573D /* RotateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateViewController.m; sourceTree = "<group>"; };
 		D68738711C0DADB300C2573D /* ResizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeViewController.h; sourceTree = "<group>"; };
 		D68738721C0DADB300C2573D /* ResizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeViewController.m; sourceTree = "<group>"; };
-		D68738741C0DADC000C2573D /* CanvasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasViewController.h; sourceTree = "<group>"; };
-		D68738751C0DADC000C2573D /* CanvasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
 		D68738771C0DADCB00C2573D /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		D68738781C0DADCB00C2573D /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,15 +130,10 @@
 		7A1F3E391BFE19B900EB8550 /* SkadiControl */ = {
 			isa = PBXGroup;
 			children = (
+				D60021421C0E554000838C37 /* SkadiControl */,
 				D61D2A2A1BFF56CD0038695E /* Example App */,
 				7A1F3E3D1BFE19B900EB8550 /* AppDelegate.h */,
 				7A1F3E3E1BFE19B900EB8550 /* AppDelegate.m */,
-				D60B6F371C033CD7001B253C /* SkadiCanvas.h */,
-				D60B6F381C033CD7001B253C /* SkadiCanvas.m */,
-				D60B6F391C033CD7001B253C /* SkadiControl.h */,
-				D60B6F3A1C033CD7001B253C /* SkadiControl.m */,
-				D60B6F341C033AA6001B253C /* WControlButton.h */,
-				D60B6F351C033AA6001B253C /* WControlButton.m */,
 				7A1F3E431BFE19B900EB8550 /* Main.storyboard */,
 				7A1F3E461BFE19B900EB8550 /* Assets.xcassets */,
 				7A1F3E481BFE19B900EB8550 /* LaunchScreen.storyboard */,
@@ -176,6 +169,19 @@
 			path = SkadiControlUITests;
 			sourceTree = "<group>";
 		};
+		D60021421C0E554000838C37 /* SkadiControl */ = {
+			isa = PBXGroup;
+			children = (
+				D60B6F391C033CD7001B253C /* SkadiControl.h */,
+				D60B6F3A1C033CD7001B253C /* SkadiControl.m */,
+				D60B6F371C033CD7001B253C /* SkadiCanvas.h */,
+				D60B6F381C033CD7001B253C /* SkadiCanvas.m */,
+				D60B6F341C033AA6001B253C /* WControlButton.h */,
+				D60B6F351C033AA6001B253C /* WControlButton.m */,
+			);
+			name = SkadiControl;
+			sourceTree = "<group>";
+		};
 		D61D2A261BFF56A50038695E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +192,7 @@
 		D61D2A271BFF56AF0038695E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D60021411C0E4CC800838C37 /* Themes.h */,
 				D61D2A231BFF567D0038695E /* ExampleViewController.h */,
 				D61D2A241BFF567D0038695E /* ExampleViewController.m */,
 				D638B0451C046EA500FC1B9A /* PagesContents.h */,
@@ -197,8 +204,6 @@
 				D687386F1C0DADA600C2573D /* RotateViewController.m */,
 				D68738711C0DADB300C2573D /* ResizeViewController.h */,
 				D68738721C0DADB300C2573D /* ResizeViewController.m */,
-				D68738741C0DADC000C2573D /* CanvasViewController.h */,
-				D68738751C0DADC000C2573D /* CanvasViewController.m */,
 				D68738771C0DADCB00C2573D /* ControlsViewController.h */,
 				D68738781C0DADCB00C2573D /* ControlsViewController.m */,
 			);
@@ -355,7 +360,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D638B0471C046EA500FC1B9A /* PagesContents.m in Sources */,
-				D68738761C0DADC000C2573D /* CanvasViewController.m in Sources */,
 				D68738791C0DADCB00C2573D /* ControlsViewController.m in Sources */,
 				D638B0421C046DD800FC1B9A /* SkadiCanvas.m in Sources */,
 				D66B13FC1C0DD8D200BCCD5E /* ToolbarManager.m in Sources */,

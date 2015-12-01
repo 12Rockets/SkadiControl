@@ -91,7 +91,7 @@
                   view:(UIView*)canvasView
 {
     // Initialize adjustable view
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets-square"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"12rockets"]];
     
     self = [super initWithFrame:imageView.frame];
     
@@ -139,7 +139,7 @@
         
         
         self.initial = YES;
-        
+        self.controlsThemeName = @"Default";
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
@@ -149,7 +149,6 @@
         CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];
         CGFloat y = fabs(self.center.y - self.rotationControl.center.y);
         _startRotationAngle = M_PI_2 + acosf(y/r);
-        
 
         
         CGAffineTransform transform = CGAffineTransformMakeScale(self.scale, self.scale);
@@ -265,11 +264,6 @@
     [self removeFromSuperview];
 }
 
-
-// self.rotationControlStartPoint A
-// currentPoint                   B
-// center                         C
-
 - (void)handleRotationControlGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
     if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
@@ -351,26 +345,28 @@
     else if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
             gestureRecognizer.state==UIGestureRecognizerStateEnded)
     {
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
         
         CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
         CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
+//        center.x += self.translation.x;
+//        center.y += self.translation.y;
         
         CGFloat startDistance = [self distanceFrom:center to:self.scalingControlStartPoint];
         CGFloat currentDistance = [self distanceFrom:center to:currentPoint];
         if(startDistance==0)
             return;
         
-        CGFloat newScale = currentDistance/startDistance;
+        CGFloat delta = currentDistance/startDistance;
+        
+        CGFloat newScale = delta;
         
         CGFloat scaleToPerform = MIN(self.maxScale, newScale);
         scaleToPerform = MAX(self.minScale, scaleToPerform);
         
-        
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
         transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
         transform = CGAffineTransformRotate(transform, self.rotationAngle);
         self.transform = transform;
-        
         
         CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scaleToPerform, 1/scaleToPerform);
         controlTransform = CGAffineTransformRotate(controlTransform, -self.rotationAngle);
@@ -558,16 +554,13 @@
 -(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation andTranslation:(CGPoint)position
 {
     
-    CGFloat scaleToPerform = MIN(self.maxScale, scale);
-    scaleToPerform = MAX(self.minScale, scaleToPerform);
-    
     CGAffineTransform transform = CGAffineTransformMakeTranslation(position.x, position.y);
-    transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
+    transform = CGAffineTransformScale(transform, scale, scale);
     transform = CGAffineTransformRotate(transform, rotation);
     
     self.transform = transform;
     
-    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scaleToPerform, 1/scaleToPerform);
+    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scale, 1/scale);
     controlTransform = CGAffineTransformRotate(controlTransform, -rotation);
     
     self.confirmControl.transform = controlTransform;

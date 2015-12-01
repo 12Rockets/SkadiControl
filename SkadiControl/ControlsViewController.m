@@ -8,6 +8,13 @@
 
 #import "ControlsViewController.h"
 #import "ToolbarManager.h"
+#import "Themes.h"
+
+@interface ControlsViewController()
+
+@property (nonatomic, strong)NSArray *controlsArray;
+
+@end
 
 @implementation ControlsViewController
 
@@ -15,27 +22,58 @@
 {
     [super viewDidLoad];
     [ToolbarManager manager].controlsVC = self;
+    
+    _controlsPicker.delegate = self;
+    
+    _controlsArray = [[NSArray alloc] initWithObjects:CONTROL_THEME_GREEN, CONTROL_THEME_DEFAULT, CONTROL_THEME_PURPLE, nil];
+    
+    [_controlsPicker selectRow:1 inComponent:0 animated:NO];
 }
 
-//-(void)onAssetsChanged: (NSNotification *)notification
-//{
-//    NSString *assetsName = [notification object];
-//    SkadiControl *control = [self selectedSkadiControl];
-//    
-//    
-//    if ([assetsName isEqualToString:@"Green"])
-//    {
-//        [control setAssetsWithNameForConfirm:@"skadi-confirm-green" forRotation:@"skadi-rotate-green" forScaling:@"skadi-scale-green" andForDeletion:@"skadi-delete-green"];;
-//        
-//    }else if ([assetsName isEqualToString:@"Default"]) {
-//        
-//        [control setAssetsWithNameForConfirm:@"skadi-confirm-default" forRotation:@"skadi-rotate-default" forScaling:@"skadi-scale-default" andForDeletion:@"skadi-delete-default"];
-//        
-//    }else if ([assetsName isEqualToString:@"Purple"])
-//    {
-//        [control setAssetsWithNameForConfirm:@"skadi-confirm-purple" forRotation:@"skadi-rotate-purple" forScaling:@"skadi-scale-purple" andForDeletion:@"skadi-delete-purple"];
-//    }
-//}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
 
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.controlsArray.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    switch (row)
+    {
+        case 0:
+            return @"Green";
+            break;
+        case 1:
+            return @"Default";
+            break;
+        case 2:
+            return @"Purple";
+            break;
+        default:
+            return @"Undefined";
+            break;
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSString *themeName = self.controlsArray[row];
+    [[ToolbarManager manager].delegate controlsThemeChanged:themeName];
+}
+
+- (void)selectThemeNamed:(NSString *)name
+{
+    for (int i=0; i<self.controlsArray.count; i++)
+    {
+        if ([name isEqualToString:self.controlsArray[i]])
+        {
+            [self.controlsPicker selectRow:i inComponent:0 animated:YES];
+        }
+    }
+}
 
 @end

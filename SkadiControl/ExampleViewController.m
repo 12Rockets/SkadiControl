@@ -10,11 +10,12 @@
 #import "SkadiControl.h"
 #import "Notifications.h"
 #import "ToolbarManager.h"
+#import "Themes.h"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 
-@interface ExampleViewController() <SkadiControlDelegate, MoveProtocol, RotateProtocol, ResizeProtocol, CanvasProtocol, ControlsProtocol>
+@interface ExampleViewController() <SkadiControlDelegate, MoveProtocol, RotateProtocol, ResizeProtocol, ControlsProtocol>
 
 @property (nonatomic, strong)NSMutableArray *skadiControls;
 
@@ -68,13 +69,34 @@
     [control setCanvasView:view];
 }
 
-- (void)controlsChangedConfirm:(NSString *)confirm
-                   forRotation:(NSString *)rotation
-                    forScaling:(NSString *)scaling
-                andForDeletion:(NSString *)deletion
+- (void)controlsThemeChanged:(NSString *)themeName
 {
     SkadiControl *control = [self selectedSkadiControl];
-    [control setAssetsWithNameForConfirm:confirm forRotation:rotation forScaling:scaling andForDeletion:deletion];;
+    control.controlsThemeName = themeName;
+    
+    if ([themeName isEqualToString:CONTROL_THEME_GREEN])
+    {
+        [control  setAssetsWithNameForConfirm:@"skadi-confirm-green"
+                                  forRotation:@"skadi-rotate-green"
+                                   forScaling:@"skadi-scale-green"
+                               andForDeletion:@"skadi-delete-green"];;
+        
+    }else if ([themeName isEqualToString:CONTROL_THEME_DEFAULT]) {
+        
+        [control  setAssetsWithNameForConfirm:@"skadi-confirm-default"
+                                  forRotation:@"skadi-rotate-default"
+                                   forScaling:@"skadi-scale-default"
+                               andForDeletion:@"skadi-delete-default"];
+        
+    }else if ([themeName isEqualToString:CONTROL_THEME_PURPLE])
+    {
+        [control setAssetsWithNameForConfirm:@"skadi-confirm-purple"
+                                 forRotation:@"skadi-rotate-purple"
+                                  forScaling:@"skadi-scale-purple"
+                              andForDeletion:@"skadi-delete-purple"];
+    }
+    
+
 }
 
 #pragma mark - SkadiControl Delegate Methods
@@ -102,6 +124,8 @@
     [[ToolbarManager manager].rotateVC.rotationLabel setText:[NSString stringWithFormat:@"%d°", (int)RADIANS_TO_DEGREES(control.rotationAngle)]];
     
     [[ToolbarManager manager].rotateVC.rotationSlider setValue:control.rotationAngle animated:YES];
+    
+    [[ToolbarManager manager].controlsVC selectThemeNamed:control.controlsThemeName];
 }
 
 - (void)skadiControlWillRemove:(id)sender

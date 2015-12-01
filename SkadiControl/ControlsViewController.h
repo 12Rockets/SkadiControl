@@ -10,15 +10,14 @@
 
 @protocol ControlsProtocol <NSObject>
 
-- (void)controlsChangedConfirm:(NSString *)confirm
-                   forRotation:(NSString *)rotation
-                    forScaling:(NSString *)scaling
-                andForDeletion:(NSString *)deletion;
+- (void)controlsThemeChanged:(NSString *)themeName;
 
 @end
 
-@interface ControlsViewController : UIViewController
+@interface ControlsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *controlsPicker;
+
+- (void)selectThemeNamed:(NSString *)name;
 
 @end
