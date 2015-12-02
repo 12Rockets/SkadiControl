@@ -147,7 +147,7 @@
         self.validYTranslation = 0;
         self.translation = CGPointZero;
         _rotationAngle = 0;
-        self.controlCenter = pos;
+        _controlCenter = pos;
         
         //rotation
         CGFloat r = [self distanceFromPoint:self.center toPoint:self.rotationControl.center];

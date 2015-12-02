@@ -12,6 +12,8 @@
 
 - (void)rotationSliderChanged:(CGFloat)value;
 
+- (void)setInitialRotationValues;
+
 @end
 
 @interface RotateViewController : UIViewController

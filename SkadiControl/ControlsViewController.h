@@ -12,6 +12,8 @@
 
 - (void)controlsThemeChanged:(NSString *)themeName;
 
+- (void)setInitialControlsThemeValues;
+
 @end
 
 @interface ControlsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>

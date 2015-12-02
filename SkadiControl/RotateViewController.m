@@ -21,6 +21,8 @@
     
     [self.rotationSlider setMaximumValue:MAX_ROTATION];
     [self.rotationSlider setMinimumValue:MIN_ROTATION];
+    
+    [[ToolbarManager manager].delegate setInitialRotationValues];
 }
 
 - (IBAction)rotationSliderChanged:(UISlider *)sender

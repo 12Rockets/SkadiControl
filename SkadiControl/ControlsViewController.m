@@ -27,7 +27,7 @@
     
     _controlsArray = [[NSArray alloc] initWithObjects:CONTROL_THEME_GREEN, CONTROL_THEME_DEFAULT, CONTROL_THEME_PURPLE, nil];
     
-    [_controlsPicker selectRow:1 inComponent:0 animated:NO];
+    [[ToolbarManager manager].delegate setInitialControlsThemeValues];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

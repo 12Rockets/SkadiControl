@@ -12,6 +12,8 @@
 
 - (void)resizeSliderChanged:(CGFloat)value;
 
+- (void)setInitialResizeValues;
+
 @end
 
 @interface ResizeViewController : UIViewController

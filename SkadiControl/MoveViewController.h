@@ -13,6 +13,8 @@
 - (void)xMoveSliderChanged:(CGFloat)value;
 - (void)yMoveSliderChanged:(CGFloat)value;
 
+- (void)setInitialMoveValues;
+
 @end
 
 @interface MoveViewController : UIViewController

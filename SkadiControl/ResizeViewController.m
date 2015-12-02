@@ -16,6 +16,8 @@
 {
     [super viewDidLoad];
     [ToolbarManager manager].resizeVC = self;
+    
+    [[ToolbarManager manager].delegate setInitialResizeValues];
 }
 
 - (IBAction)resizeSliderChanged:(UISlider *)sender

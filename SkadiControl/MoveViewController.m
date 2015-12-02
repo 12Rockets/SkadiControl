@@ -15,6 +15,8 @@
 {
     [super viewDidLoad];
     [ToolbarManager manager].moveVC = self;
+    
+    [[ToolbarManager manager].delegate setInitialMoveValues];
 }
 
 - (IBAction)xMoveSliderChanged:(UISlider *)sender
