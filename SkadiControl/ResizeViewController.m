@@ -21,6 +21,7 @@
 - (IBAction)resizeSliderChanged:(UISlider *)sender
 {
     [[ToolbarManager manager].delegate resizeSliderChanged:sender.value];
+    [self.resizeLabel setText:[NSString stringWithFormat:@"%d%%", (int)(sender.value*100)]];
 }
 
 @end

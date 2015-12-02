@@ -540,7 +540,6 @@
 
 -(void)setTransformWithScale:(CGFloat)scale andRotation:(CGFloat)rotation andTranslation:(CGPoint)position
 {
-    
     CGAffineTransform transform = CGAffineTransformMakeTranslation(position.x, position.y);
     transform = CGAffineTransformScale(transform, scale, scale);
     transform = CGAffineTransformRotate(transform, rotation);
@@ -596,7 +595,15 @@
 
 - (void)setControlCenter:(CGPoint)controlCenter
 {
+    CGPoint translation = CGPointMake(controlCenter.x-self.controlCenter.x, controlCenter.y-self.controlCenter.y);
+    
+    CGFloat xTranslation = translation.x + self.translation.x;
+    CGFloat yTranslation = translation.y + self.translation.y;
+    
     _controlCenter = controlCenter;
-    [self setTransformWithScale:self.scale andRotation:self.rotationAngle andTranslation:controlCenter];
+    
+    _translation = CGPointMake(xTranslation, yTranslation);
+    
+    [self setTransformWithScale:self.scale andRotation:self.rotationAngle andTranslation:_translation];
 }
 @end

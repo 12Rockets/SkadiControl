@@ -10,6 +10,8 @@
 #import "ToolbarManager.h"
 #import "SkadiControl.h"
 
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+
 @implementation RotateViewController
 
 -(void)viewDidLoad
@@ -24,6 +26,8 @@
 - (IBAction)rotationSliderChanged:(UISlider *)sender
 {
     [[ToolbarManager manager].delegate rotationSliderChanged:sender.value];
+    [self.rotationLabel setText:[NSString stringWithFormat:@"%d°", (int)RADIANS_TO_DEGREES(sender.value)]];
+
 }
 
 @end

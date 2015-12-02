@@ -20,11 +20,13 @@
 - (IBAction)xMoveSliderChanged:(UISlider *)sender
 {
     [[ToolbarManager manager].delegate xMoveSliderChanged:sender.value];
+    [self.xMoveLabel setText:[NSString stringWithFormat:@"%d", (int)sender.value]];
 }
 
 - (IBAction)yMoveSliderChanged:(UISlider *)sender
 {
     [[ToolbarManager manager].delegate yMoveSliderChanged:sender.value];
+    [self.yMoveLabel setText:[NSString stringWithFormat:@"%d", (int)sender.value]];
 }
 
 @end
