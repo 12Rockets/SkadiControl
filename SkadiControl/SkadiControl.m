@@ -27,8 +27,11 @@
 
 @property(nonatomic) CGFloat startRotationAngle;
 
+@property(nonatomic) CGFloat maxScaleDistance;
+@property(nonatomic) CGFloat minScaleDistance;
+
 @property(nonatomic) CGPoint translation;
-@property(nonatomic) CGPoint scalingControlStartPoint;
+
 @property(nonatomic) CGPoint rotationControlStartPoint;
 @property(nonatomic) BOOL initial;
 @property(nonatomic) CGPoint defaultCenterPoint;
@@ -120,10 +123,11 @@
         [self addSubview:self.rotationControl];
         [self addSubview:self.scalingControl];
         
-        //size
-        CGSize minSize = CGSizeMake(CONTROL_WIDTH, CONTROL_HEIGHT);
         CGSize maxSize = CGSizeMake(superview.frame.size.width, superview.frame.size.height);
-        
+        self.maxScaleDistance = pow(pow(maxSize.width/2, 2.0) + pow(maxSize.height/2, 2.0), 0.5);
+        CGSize minSize = CGSizeMake(CONTROL_WIDTH, CONTROL_HEIGHT);
+        self.minScaleDistance = pow(pow(minSize.width/2, 2.0) + pow(minSize.height/2, 2.0), 0.5);
+
         _scale = 1.0;
         
         if (self.frame.size.width >= self.frame.size.width)
@@ -338,48 +342,31 @@
 
 - (void)handleScaleControlGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        self.scalingControlStartPoint = [gestureRecognizer locationInView:self.superview];
-    }
-    else if(gestureRecognizer.state == UIGestureRecognizerStateChanged ||
-            gestureRecognizer.state==UIGestureRecognizerStateEnded)
-    {
-        
-        CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
-        CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
-//        center.x += self.translation.x;
-//        center.y += self.translation.y;
-        
-        CGFloat startDistance = [self distanceFrom:center to:self.scalingControlStartPoint];
-        CGFloat currentDistance = [self distanceFrom:center to:currentPoint];
-        if(startDistance==0)
-            return;
-        
-        CGFloat delta = currentDistance/startDistance;
-        
-        CGFloat newScale = delta;
-        
-        CGFloat scaleToPerform = MIN(self.maxScale, newScale);
-        scaleToPerform = MAX(self.minScale, scaleToPerform);
-        
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
-        transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
-        transform = CGAffineTransformRotate(transform, self.rotationAngle);
-        self.transform = transform;
-        
-        CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scaleToPerform, 1/scaleToPerform);
-        controlTransform = CGAffineTransformRotate(controlTransform, -self.rotationAngle);
-        
-        self.confirmControl.transform = controlTransform;
-        self.scalingControl.transform = controlTransform;
-        self.rotationControl.transform = controlTransform;
-        self.deletionControl.transform = controlTransform;
-        
-        _scale = scaleToPerform;
-        [self.delegate skadiControlDidScale:self];
-
-    }
+    CGPoint currentPoint = [gestureRecognizer locationInView:self.superview];
+    CGPoint center = CGPointMake(self.frame.origin.x + self.frame.size.width/2, self.frame.origin.y + self.frame.size.height/2);
+    CGFloat currentDistance = [self distanceFrom:center to:currentPoint];
+    
+    CGFloat scaleToPerform = (currentDistance/(self.maxScaleDistance-self.minScaleDistance))*self.maxScale;
+    
+    scaleToPerform = MIN(self.maxScale, scaleToPerform);
+    scaleToPerform = MAX(self.minScale, scaleToPerform);
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(self.translation.x, self.translation.y);
+    transform = CGAffineTransformScale(transform, scaleToPerform, scaleToPerform);
+    transform = CGAffineTransformRotate(transform, self.rotationAngle);
+    self.transform = transform;
+    
+    CGAffineTransform controlTransform = CGAffineTransformMakeScale(1/scaleToPerform, 1/scaleToPerform);
+    controlTransform = CGAffineTransformRotate(controlTransform, -self.rotationAngle);
+    
+    self.confirmControl.transform = controlTransform;
+    self.scalingControl.transform = controlTransform;
+    self.rotationControl.transform = controlTransform;
+    self.deletionControl.transform = controlTransform;
+    
+    _scale = scaleToPerform;
+    
+    [self.delegate skadiControlDidScale:self];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
