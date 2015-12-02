@@ -15,7 +15,7 @@
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 
-@interface ExampleViewController() <SkadiControlDelegate, MoveProtocol, RotateProtocol, ResizeProtocol, ControlsProtocol>
+@interface ExampleViewController() <SkadiControlDelegate, MoveProtocol, RotateProtocol, ResizeProtocol, ControlsProtocol, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong)NSMutableArray *skadiControls;
 
@@ -31,11 +31,38 @@
     [super viewDidLoad];
     
     [ToolbarManager manager].delegate = self;
+    
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleSingleTap:)];
+    singleFingerTap.delegate = self;
+    [self.skadiView addGestureRecognizer:singleFingerTap];
 }
 
 - (IBAction)addSkadi:(id)sender
 {
     [self.skadiControls addObject:[[SkadiControl alloc] initWithsuperview:self.skadiView controlsDelegate:self imageNamed:@"12rockets-square"]];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
+{
+    [self deselectAllOtherControlsExcept:nil];
+    
+    [self setToolbarMoveValuesForControl:nil];
+    [self setToolbarResizeValuesForControl:nil];
+    [self setToolbarRotationValuesForControl:nil];
+    [self setToolbarControlsThemeValuesForControl:nil];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    for (SkadiControl* control in self.skadiControls)
+    {
+        if (CGRectContainsPoint(control.frame, [touch locationInView:self.skadiView]))
+        {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark - Toolbar Delegate Methods
