@@ -5,8 +5,8 @@ Changes by user interaction are communicated through delegate pattern while chan
 
 ## Preview
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/screenshot.jpg" width="250">
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiPreview.jpg" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/screenshot.jpg" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiPreview.jpg" width="250">
 </p>
 
 ---
@@ -37,7 +37,7 @@ Note: There are two read-only variables in SkadiControl: `minScale` and `maxScal
 `SkadiControl` can be selected or deselected by setting the `selected` property.
 
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiSelect.gif" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiSelect.gif" width="250">
 </p>
 
 ```Objective-C
@@ -49,7 +49,7 @@ Note: There are two read-only variables in SkadiControl: `minScale` and `maxScal
 `SkadiControl`'s rotation angle can be set by changing `rotationAngle` property.
 
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiRotate.gif" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiRotate.gif" width="250">
 </p>
 
 ```Objective-C
@@ -60,7 +60,7 @@ Note: There are two read-only variables in SkadiControl: `minScale` and `maxScal
 `SkadiControl`'s scale can be set by changing `scale` property.
 
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiScale.gif" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiScale.gif" width="250">
 </p>
 
 ```Objective-C
@@ -71,7 +71,7 @@ Note: There are two read-only variables in SkadiControl: `minScale` and `maxScal
 `SkadiControl`'s center can be set by changing `controlCenter` property.
 
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiMove.gif" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiMove.gif" width="250">
 </p>
 
 ```Objective-C
@@ -81,7 +81,7 @@ Note: There are two read-only variables in SkadiControl: `minScale` and `maxScal
 `SkadiControl`'s control buttons can be set by calling `setAssetsWithNameForConfirm: forRotation: forScaling: andForDeletion:`.
 
 <p align="center" >
-<img src="https://github.com/12Rockets/SkadiControl/blob/master/skadiControls.gif" width="250">
+<img src="https://github.com/12Rockets/SkadiControl/blob/master/Gifs/skadiControls.gif" width="250">
 </p>
 
 ```Objective-C
