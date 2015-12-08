@@ -1,13 +1,12 @@
 //
-//  WControlsView.m
+//  SkadiControl.m
 //  SkadiControl
 //
 //  Created by Marko Čančar on 20.11.15..
-//  Copyright © 2015. Aleksandra Stevović. All rights reserved.
+//  Copyright © 2015. 12Rockets. All rights reserved.
 //
 
 #import "SkadiControl.h"
-#import "SkadiCanvas.h"
 
 #define USING_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IPAD_SCALE 1.5
@@ -16,10 +15,10 @@
 #define CONTROL_HEIGHT  (USING_IPAD ? IPAD_SCALE*30.0 : 29.0)
 
 @interface SkadiControl()
-@property(nonatomic,strong) WControlButton *scalingControl;
-@property(nonatomic,strong) WControlButton *rotationControl;
-@property(nonatomic,strong) WControlButton *deletionControl;
-@property(nonatomic,strong) WControlButton *confirmControl;
+@property(nonatomic,strong) SkadiControlButton *scalingControl;
+@property(nonatomic,strong) SkadiControlButton *rotationControl;
+@property(nonatomic,strong) SkadiControlButton *deletionControl;
+@property(nonatomic,strong) SkadiControlButton *confirmControl;
 
 
 @property(nonatomic) CGFloat validYTranslation;
@@ -29,6 +28,9 @@
 
 @property(nonatomic) CGFloat maxScaleDistance;
 @property(nonatomic) CGFloat minScaleDistance;
+
+@property(nonatomic) CGFloat minScale;
+@property(nonatomic) CGFloat maxScale;
 
 @property(nonatomic) CGPoint translation;
 
@@ -108,13 +110,13 @@
         // Initialize controls
         self.delegate = controlsDelegate;
         
-        self.confirmControl = [[WControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
+        self.confirmControl = [[SkadiControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
-        self.rotationControl = [[WControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
+        self.rotationControl = [[SkadiControlButton alloc] initWithFrame:CGRectMake(-CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
-        self.scalingControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
+        self.scalingControl = [[SkadiControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - CONTROL_WIDTH/2, self.bounds.size.height - CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
-        self.deletionControl = [[WControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
+        self.deletionControl = [[SkadiControlButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-CONTROL_WIDTH/2, -CONTROL_HEIGHT/2, CONTROL_WIDTH, CONTROL_HEIGHT)];
         
         [self setAssetsWithNameForConfirm:@"skadi-confirm-default" forRotation:@"skadi-rotate-default" forScaling:@"skadi-scale-default" andForDeletion:@"skadi-delete-default"];
         
@@ -477,29 +479,6 @@
     if (selected) {
         [self.delegate skadiControlDidSelect:self];
     }
-}
-
-- (void)setCanvasImageNamed:(NSString *)imageName
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    [self.canvas setCanvasView:imageView];
-
-    [self updateFrames];
-}
-
-- (void)setCanvasImage:(UIImage *)image
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [self.canvas setCanvasView:imageView];
-
-    [self updateFrames];
-}
-
-- (void)setCanvasView:(UIView *)view
-{
-    [self.canvas setCanvasView:view];
-    [self updateFrames];
-
 }
 
 - (void)updateFrames

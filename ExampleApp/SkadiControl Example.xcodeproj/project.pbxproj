@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D617A5CA1C16F7E50018E547 /* ToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A5C91C16F7E50018E547 /* ToolbarManager.m */; };
+		D617A5EB1C16F8CF0018E547 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A5EA1C16F8CF0018E547 /* AppDelegate.m */; };
+		D617A5ED1C16F8DC0018E547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D617A5EC1C16F8DC0018E547 /* Assets.xcassets */; };
+		D617A5F21C16F8F30018E547 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D617A5EE1C16F8F30018E547 /* LaunchScreen.storyboard */; };
+		D617A5F31C16F8F30018E547 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D617A5F01C16F8F30018E547 /* Main.storyboard */; };
+		D617A5FB1C16F90B0018E547 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A5F61C16F90B0018E547 /* main.m */; };
+		D617A6061C16F9180018E547 /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A5FD1C16F9170018E547 /* ControlsViewController.m */; };
+		D617A6071C16F9180018E547 /* ExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A5FF1C16F9170018E547 /* ExampleViewController.m */; };
+		D617A6081C16F9180018E547 /* MoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A6011C16F9170018E547 /* MoveViewController.m */; };
+		D617A6091C16F9180018E547 /* ResizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A6031C16F9170018E547 /* ResizeViewController.m */; };
+		D617A60A1C16F9180018E547 /* RotateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A6051C16F9180018E547 /* RotateViewController.m */; };
+		D66BBCB81C16FB83009A0328 /* SkadiCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A6171C16F96B0018E547 /* SkadiCanvas.m */; };
+		D66BBCB91C16FB83009A0328 /* SkadiControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A6191C16F96B0018E547 /* SkadiControl.m */; };
+		D66BBCBA1C16FB83009A0328 /* SkadiControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D617A61B1C16F96B0018E547 /* SkadiControlButton.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7A1F3E371BFE19B900EB8550 /* SkadiControl Example Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SkadiControl Example Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D617A5C81C16F7E50018E547 /* ToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarManager.h; path = Models/ToolbarManager.h; sourceTree = SOURCE_ROOT; };
+		D617A5C91C16F7E50018E547 /* ToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarManager.m; path = Models/ToolbarManager.m; sourceTree = SOURCE_ROOT; };
+		D617A5E91C16F8CF0018E547 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Models/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		D617A5EA1C16F8CF0018E547 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Models/AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		D617A5EC1C16F8DC0018E547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		D617A5EF1C16F8F30018E547 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		D617A5F11C16F8F30018E547 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		D617A5F41C16F90B0018E547 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; name = .DS_Store; path = "Support Files/.DS_Store"; sourceTree = SOURCE_ROOT; };
+		D617A5F51C16F90B0018E547 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Support Files/Info.plist"; sourceTree = SOURCE_ROOT; };
+		D617A5F61C16F90B0018E547 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Support Files/main.m"; sourceTree = SOURCE_ROOT; };
+		D617A5F71C16F90B0018E547 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notifications.h; path = "Support Files/Notifications.h"; sourceTree = SOURCE_ROOT; };
+		D617A5F81C16F90B0018E547 /* Themes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Themes.h; path = "Support Files/Themes.h"; sourceTree = SOURCE_ROOT; };
+		D617A5FC1C16F9170018E547 /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlsViewController.h; path = "View Controllers/ControlsViewController.h"; sourceTree = SOURCE_ROOT; };
+		D617A5FD1C16F9170018E547 /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlsViewController.m; path = "View Controllers/ControlsViewController.m"; sourceTree = SOURCE_ROOT; };
+		D617A5FE1C16F9170018E547 /* ExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleViewController.h; path = "View Controllers/ExampleViewController.h"; sourceTree = SOURCE_ROOT; };
+		D617A5FF1C16F9170018E547 /* ExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleViewController.m; path = "View Controllers/ExampleViewController.m"; sourceTree = SOURCE_ROOT; };
+		D617A6001C16F9170018E547 /* MoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveViewController.h; path = "View Controllers/MoveViewController.h"; sourceTree = SOURCE_ROOT; };
+		D617A6011C16F9170018E547 /* MoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveViewController.m; path = "View Controllers/MoveViewController.m"; sourceTree = SOURCE_ROOT; };
+		D617A6021C16F9170018E547 /* ResizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResizeViewController.h; path = "View Controllers/ResizeViewController.h"; sourceTree = SOURCE_ROOT; };
+		D617A6031C16F9170018E547 /* ResizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResizeViewController.m; path = "View Controllers/ResizeViewController.m"; sourceTree = SOURCE_ROOT; };
+		D617A6041C16F9180018E547 /* RotateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateViewController.h; path = "View Controllers/RotateViewController.h"; sourceTree = SOURCE_ROOT; };
+		D617A6051C16F9180018E547 /* RotateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotateViewController.m; path = "View Controllers/RotateViewController.m"; sourceTree = SOURCE_ROOT; };
+		D617A6161C16F96B0018E547 /* SkadiCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiCanvas.h; sourceTree = "<group>"; };
+		D617A6171C16F96B0018E547 /* SkadiCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiCanvas.m; sourceTree = "<group>"; };
+		D617A6181C16F96B0018E547 /* SkadiControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiControl.h; sourceTree = "<group>"; };
+		D617A6191C16F96B0018E547 /* SkadiControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiControl.m; sourceTree = "<group>"; };
+		D617A61A1C16F96B0018E547 /* SkadiControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkadiControlButton.h; sourceTree = "<group>"; };
+		D617A61B1C16F96B0018E547 /* SkadiControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkadiControlButton.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A1F3E341BFE19B900EB8550 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A1F3E2E1BFE19B900EB8550 = {
+			isa = PBXGroup;
+			children = (
+				D60021421C0E554000838C37 /* SkadiControl */,
+				7A1F3E391BFE19B900EB8550 /* ExampleApp */,
+				7A1F3E381BFE19B900EB8550 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A1F3E381BFE19B900EB8550 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A1F3E371BFE19B900EB8550 /* SkadiControl Example Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A1F3E391BFE19B900EB8550 /* ExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				D617A5E81C16F8920018E547 /* Resources */,
+				D61D2A281BFF56B90038695E /* Models */,
+				D61D2A271BFF56AF0038695E /* ViewControllers */,
+				7A1F3E3A1BFE19B900EB8550 /* Supporting Files */,
+			);
+			name = ExampleApp;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7A1F3E3A1BFE19B900EB8550 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D617A5F41C16F90B0018E547 /* .DS_Store */,
+				D617A5F51C16F90B0018E547 /* Info.plist */,
+				D617A5F61C16F90B0018E547 /* main.m */,
+				D617A5F71C16F90B0018E547 /* Notifications.h */,
+				D617A5F81C16F90B0018E547 /* Themes.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D60021421C0E554000838C37 /* SkadiControl */ = {
+			isa = PBXGroup;
+			children = (
+				D617A6161C16F96B0018E547 /* SkadiCanvas.h */,
+				D617A6171C16F96B0018E547 /* SkadiCanvas.m */,
+				D617A6181C16F96B0018E547 /* SkadiControl.h */,
+				D617A6191C16F96B0018E547 /* SkadiControl.m */,
+				D617A61A1C16F96B0018E547 /* SkadiControlButton.h */,
+				D617A61B1C16F96B0018E547 /* SkadiControlButton.m */,
+			);
+			name = SkadiControl;
+			path = ../SkadiControl;
+			sourceTree = "<group>";
+		};
+		D617A5E81C16F8920018E547 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D617A5EC1C16F8DC0018E547 /* Assets.xcassets */,
+				D617A5EE1C16F8F30018E547 /* LaunchScreen.storyboard */,
+				D617A5F01C16F8F30018E547 /* Main.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D61D2A271BFF56AF0038695E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D617A5FC1C16F9170018E547 /* ControlsViewController.h */,
+				D617A5FD1C16F9170018E547 /* ControlsViewController.m */,
+				D617A5FE1C16F9170018E547 /* ExampleViewController.h */,
+				D617A5FF1C16F9170018E547 /* ExampleViewController.m */,
+				D617A6001C16F9170018E547 /* MoveViewController.h */,
+				D617A6011C16F9170018E547 /* MoveViewController.m */,
+				D617A6021C16F9170018E547 /* ResizeViewController.h */,
+				D617A6031C16F9170018E547 /* ResizeViewController.m */,
+				D617A6041C16F9180018E547 /* RotateViewController.h */,
+				D617A6051C16F9180018E547 /* RotateViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D61D2A281BFF56B90038695E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D617A5E91C16F8CF0018E547 /* AppDelegate.h */,
+				D617A5EA1C16F8CF0018E547 /* AppDelegate.m */,
+				D617A5C81C16F7E50018E547 /* ToolbarManager.h */,
+				D617A5C91C16F7E50018E547 /* ToolbarManager.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A1F3E361BFE19B900EB8550 /* SkadiControl Example Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A1F3E641BFE19BA00EB8550 /* Build configuration list for PBXNativeTarget "SkadiControl Example Example" */;
+			buildPhases = (
+				7A1F3E331BFE19B900EB8550 /* Sources */,
+				7A1F3E341BFE19B900EB8550 /* Frameworks */,
+				7A1F3E351BFE19B900EB8550 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SkadiControl Example Example";
+			productName = SkadiControl;
+			productReference = 7A1F3E371BFE19B900EB8550 /* SkadiControl Example Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A1F3E2F1BFE19B900EB8550 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = 12Rockets;
+				TargetAttributes = {
+					7A1F3E361BFE19B900EB8550 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = TUUBAVQP9G;
+					};
+				};
+			};
+			buildConfigurationList = 7A1F3E321BFE19B900EB8550 /* Build configuration list for PBXProject "SkadiControl Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A1F3E2E1BFE19B900EB8550;
+			productRefGroup = 7A1F3E381BFE19B900EB8550 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A1F3E361BFE19B900EB8550 /* SkadiControl Example Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A1F3E351BFE19B900EB8550 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D617A5F31C16F8F30018E547 /* Main.storyboard in Resources */,
+				D617A5ED1C16F8DC0018E547 /* Assets.xcassets in Resources */,
+				D617A5F21C16F8F30018E547 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A1F3E331BFE19B900EB8550 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D66BBCB81C16FB83009A0328 /* SkadiCanvas.m in Sources */,
+				D66BBCB91C16FB83009A0328 /* SkadiControl.m in Sources */,
+				D66BBCBA1C16FB83009A0328 /* SkadiControlButton.m in Sources */,
+				D617A6061C16F9180018E547 /* ControlsViewController.m in Sources */,
+				D617A6091C16F9180018E547 /* ResizeViewController.m in Sources */,
+				D617A5EB1C16F8CF0018E547 /* AppDelegate.m in Sources */,
+				D617A5CA1C16F7E50018E547 /* ToolbarManager.m in Sources */,
+				D617A6081C16F9180018E547 /* MoveViewController.m in Sources */,
+				D617A6071C16F9180018E547 /* ExampleViewController.m in Sources */,
+				D617A5FB1C16F90B0018E547 /* main.m in Sources */,
+				D617A60A1C16F9180018E547 /* RotateViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D617A5EE1C16F8F30018E547 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D617A5EF1C16F8F30018E547 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D617A5F01C16F8F30018E547 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D617A5F11C16F8F30018E547 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A1F3E621BFE19BA00EB8550 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A1F3E631BFE19BA00EB8550 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A1F3E651BFE19BA00EB8550 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.12rockets.SkadiControl;
+				PRODUCT_NAME = "SkadiControl Example Example";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		7A1F3E661BFE19BA00EB8550 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.12rockets.SkadiControl;
+				PRODUCT_NAME = "SkadiControl Example Example";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A1F3E321BFE19B900EB8550 /* Build configuration list for PBXProject "SkadiControl Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1F3E621BFE19BA00EB8550 /* Debug */,
+				7A1F3E631BFE19BA00EB8550 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A1F3E641BFE19BA00EB8550 /* Build configuration list for PBXNativeTarget "SkadiControl Example Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1F3E651BFE19BA00EB8550 /* Debug */,
+				7A1F3E661BFE19BA00EB8550 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A1F3E2F1BFE19B900EB8550 /* Project object */;
+}
