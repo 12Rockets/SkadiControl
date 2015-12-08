@@ -1,7 +1,7 @@
 #SkadiControl by 12Rockets
-`SkadiControl` is a UIView-based component designed to support user interactions with a given UIView though rotating, scaling and moving. Given UIView can be an Image or some other subclassed UIView. This library is designed to be light-weight and addable to any view.
+`SkadiControl` is a `UIView`-based component designed to support user interactions with a given `UIView` though rotating, scaling and moving. Given `UIView` can be an `UIImage` or some other subclassed `UIView`. This library is designed to be light-weight and addable to any view.
 
-Changes by user interaction are communicated through delegate pattern while changing the SkadiControl is done by simply setting it's properties.
+Changes by user interaction are communicated through delegate pattern while changing the `SkadiControl` is done by simply setting it's properties.
 
 ## Preview
 <p align="center" >
@@ -11,7 +11,7 @@ Changes by user interaction are communicated through delegate pattern while chan
 
 ---
 ##Installing SkadiControl
-You can install SkadiControl in your project by simply copying source files from SkadiControl directory. Simply import SkadiControl in classes you wish to use it:
+You can install `SkadiControl` in your project by simply copying source files from SkadiControl directory. Simply import `SkadiControl` in classes you wish to use it:
 
 ```Objective-C
 #import "SkadiControl.h"
@@ -19,16 +19,16 @@ You can install SkadiControl in your project by simply copying source files from
 
 ---
 ##Creating a SkadiControl
-Creating a `SkadiControl` is as easy as creating a view.
+Creating a `SkadiControl` is as easy as creating a `UIView`.
 
-In desired UIViewController:
+In desired `UIViewController`:
 ```Objective-C
 [[SkadiControl alloc] initWithsuperview:self.skadiView controlsDelegate:self imageNamed:@"12rockets"]]
 ```
 
-There are several constructors available, check the SkadiControl header file.
+There are several constructors available, check the `SkadiControl` header file.
 
-Note: There are two read-only variables in SkadiControl: `minScale` and `maxScale` which tells user what is the minimum and the maximum scale of the control. These variables are different for the different views which the control is holding.
+Note: There are two read-only variables in `SkadiControl`: `minScale` and `maxScale` which tells user what is the minimum and the maximum scale of the control. These variables are different for the different views which the control is holding.
 
 ---
 ##Features
